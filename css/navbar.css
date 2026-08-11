@@ -294,3 +294,25 @@
         font-size: 15px;
     }
 }
+
+@media (max-width: 600px) {
+    .nav-inner {
+        padding: 0 12px;
+    }
+    .nav-logo-sub {
+        display: none;
+    }
+    .city-picker-btn {
+        padding: 5px 10px;
+        font-size: 12px;
+        margin-left: 6px;
+    }
+    .nav-cta {
+        display: none;
+    }
+    .city-dropdown {
+        left: 12px;
+        right: 12px;
+        width: auto;
+    }
+}
