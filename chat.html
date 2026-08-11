@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat — City Mitra | Ask Anything About Your City</title>
+    <meta name="description" content="Chat with City Mitra AI — get instant answers about government officers, schemes, emergency contacts, tourism and more. Hindi & English supported.">
+    <link rel="icon" href="icons/icon-192.png" type="image/png">
+    <link rel="stylesheet" href="css/design-tokens.css">
+    <link rel="stylesheet" href="css/chat.css">
+</head>
+<body>
+
+<div class="chat-app">
+
+    <!-- ═══════════════════════════════ -->
+    <!-- SIDEBAR                         -->
+    <!-- ═══════════════════════════════ -->
+    <aside class="chat-sidebar" id="chatSidebar">
+        <div class="sidebar-header">
+            <img src="icons/icon-192.png" alt="City Mitra" class="sidebar-logo">
+            <div class="sidebar-brand">City<span>Mitra</span></div>
+        </div>
+
+        <button class="sidebar-new-chat" onclick="startNewChat()">
+            💬 New chat
+        </button>
+
+        <div class="sidebar-history" id="chatHistory">
+            <div class="sidebar-section-label">RECENT</div>
+            <!-- Filled dynamically -->
+        </div>
+
+        <div class="sidebar-footer">
+            <button class="sidebar-city-select" id="sidebarCityBtn" onclick="toggleSidebarCityPicker()">
+                <span class="city-emoji" id="sidebarCityEmoji">🕉️</span>
+                <span class="city-name" id="sidebarCityName">Kurukshetra</span>
+                <span class="chevron">▾</span>
+            </button>
+
+            <!-- Sidebar City Dropdown (properly contained) -->
+            <div class="sidebar-city-dropdown-wrap" id="sidebarCityDropdown">
+                <input type="text" class="city-search-input" placeholder="Search cities..." oninput="filterSidebarCities(this.value)">
+                <div class="city-list" id="sidebarCityList"></div>
+            </div>
+
+            <div class="sidebar-plan-info">
+                Using <strong>Free</strong> plan. No sign-up needed.
+            </div>
+            <a href="index.html" class="sidebar-link">← Back to Home</a>
+        </div>
+    </aside>
+
+    <!-- Sidebar overlay (mobile) -->
+    <div class="chat-sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- ═══════════════════════════════ -->
+    <!-- MAIN CHAT AREA                  -->
+    <!-- ═══════════════════════════════ -->
+    <main class="chat-main">
+
+        <!-- City Theme Accent Bar -->
+        <div class="city-theme-bar" id="cityThemeBar"></div>
+
+        <!-- Chat Header -->
+        <div class="chat-header">
+            <div style="display:flex;align-items:center;gap:12px;">
+                <button class="chat-header-btn" onclick="toggleSidebar()" style="display:none;" id="mobileMenuBtn">☰</button>
+                <span class="chat-header-title" id="chatHeaderTitle">New chat</span>
+            </div>
+            <div class="chat-header-actions">
+                <button class="chat-header-btn" onclick="clearCurrentChat()">🗑️ Clear</button>
+                <button class="chat-header-btn" onclick="window.location.href='index.html'">✕</button>
+            </div>
+        </div>
+
+        <!-- Messages Area -->
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-messages-inner">
+
+                <!-- Welcome State (shown when no messages) -->
+                <div class="chat-welcome" id="chatWelcome">
+                    <div class="chat-welcome-icon">✦</div>
+                    <h1>What can I help you find?</h1>
+                    <p>Ask about any district — officers, schemes, tourism, emergencies, and more.</p>
+
+                    <div class="chat-suggestions" id="chatSuggestions">
+                        <button class="suggestion-card" onclick="sendSuggestion('Who is the DC of Kurukshetra?')">
+                            Who is the DC of Kurukshetra?
+                        </button>
+                        <button class="suggestion-card" onclick="sendSuggestion('Emergency contacts in my city')">
+                            Emergency contacts in my city
+                        </button>
+                        <button class="suggestion-card" onclick="sendSuggestion('Tourist places to visit')">
+                            Tourist places to visit
+                        </button>
+                        <button class="suggestion-card" onclick="sendSuggestion('Government schemes for farmers')">
+                            Government schemes for farmers
+                        </button>
+                    </div>
+
+                    <div class="chat-vibes-label">OR START WITH A TOPIC</div>
+                    <div class="chat-vibes">
+                        <button class="vibe-chip" onclick="sendSuggestion('Government officers and departments')">
+                            <span class="vibe-chip-emoji">🏛️</span> Governance
+                        </button>
+                        <button class="vibe-chip" onclick="sendSuggestion('Tourist places and heritage sites')">
+                            <span class="vibe-chip-emoji">🏕️</span> Tourism
+                        </button>
+                        <button class="vibe-chip" onclick="sendSuggestion('Emergency helplines and hospitals')">
+                            <span class="vibe-chip-emoji">🚨</span> Emergency
+                        </button>
+                        <button class="vibe-chip" onclick="sendSuggestion('Census data and population')">
+                            <span class="vibe-chip-emoji">📊</span> Census
+                        </button>
+                        <button class="vibe-chip" onclick="sendSuggestion('Government schemes and services')">
+                            <span class="vibe-chip-emoji">📋</span> Schemes
+                        </button>
+                        <button class="vibe-chip" onclick="sendSuggestion('Explain Bhagavad Gita Chapter 1')">
+                            <span class="vibe-chip-emoji">📖</span> Gita AI
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Conversation (shown when chatting) -->
+                <div class="chat-conversation" id="chatConversation"></div>
+
+                <!-- Typing Indicator -->
+                <div class="typing-indicator" id="typingIndicator">
+                    <div class="msg-avatar bot-avatar">✦</div>
+                    <div class="typing-dots">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input-area">
+            <div class="chat-input-wrap">
+                <div class="chat-input-container">
+                    <button class="chat-lang-toggle" id="langToggle" onclick="toggleLanguage()">EN</button>
+                    <textarea
+                        class="chat-textarea"
+                        id="chatInput"
+                        placeholder="Ask anything about your city..."
+                        rows="1"
+                        onkeydown="handleInputKeydown(event)"
+                        oninput="autoResizeTextarea(this)"
+                    ></textarea>
+                    <button class="chat-send-btn" id="sendBtn" onclick="sendMessage()" disabled>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    </button>
+                </div>
+                <div class="chat-disclaimer">
+                    CityMitra uses AI — verify timings, contacts, and routes before you go.
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Proximity Alert Toast -->
+    <div class="proximity-toast" id="proximityToast">
+        <div class="proximity-toast-icon" id="proximityIcon">📍</div>
+        <div class="proximity-toast-content">
+            <div class="proximity-toast-title" id="proximityTitle">You're near a landmark!</div>
+            <div class="proximity-toast-desc" id="proximityDesc">Brahma Sarovar is 200m away</div>
+        </div>
+        <button class="proximity-toast-close" onclick="dismissProximity()">✕</button>
+    </div>
+
+</div>
+
+<script src="js/chat-engine.js"></script>
+
+</body>
+</html>

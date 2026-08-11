@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — City Mitra | India's First AI Civic Assistant</title>
+    <meta name="description" content="City Mitra is India's first AI-powered civic assistant, centralizing all government information into one intelligent, bilingual platform. Learn our story.">
+    <link rel="icon" href="icons/icon-192.png" type="image/png">
+    <link rel="stylesheet" href="css/design-tokens.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <style>
+        .page-hero{background:linear-gradient(135deg,var(--surface-dark) 0%,#1a0f2e 100%);padding:calc(var(--nav-h)+60px) 0 80px;color:white;text-align:center}
+        .page-hero .section-title{color:white}
+
+        .about-story{background:var(--surface-warm)}
+        .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+        .about-grid img{border-radius:var(--radius-xl);box-shadow:var(--shadow-xl)}
+
+        .mission-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+        .mission-card{padding:32px;background:white;border:1px solid var(--ink-20);border-radius:var(--radius-lg);text-align:center;transition:all .3s}
+        .mission-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--orange-lt)}
+        .mission-card-icon{width:64px;height:64px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:28px}
+        .mission-card h3{font-size:1.15rem;font-weight:700;margin-bottom:8px}
+        .mission-card p{font-size:.9rem;color:var(--ink-60);line-height:1.6}
+
+        .timeline{max-width:700px;margin:48px auto 0;position:relative;padding-left:40px}
+        .timeline::before{content:'';position:absolute;left:16px;top:0;bottom:0;width:2px;background:var(--ink-20)}
+        .timeline-item{position:relative;margin-bottom:40px}
+        .timeline-item::before{content:'';position:absolute;left:-32px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--orange);border:3px solid var(--orange-xlt)}
+        .timeline-item h4{font-size:1rem;font-weight:700;margin-bottom:4px}
+        .timeline-item .date{font-size:12px;font-weight:600;color:var(--orange);margin-bottom:6px}
+        .timeline-item p{font-size:.9rem;color:var(--ink-60);line-height:1.5}
+
+        .numbers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px}
+        .number-card{text-align:center;padding:32px 20px;background:white;border:1px solid var(--ink-20);border-radius:var(--radius-lg)}
+        .number-card .num{font-family:var(--font-display);font-size:2.5rem;font-weight:800;margin-bottom:4px}
+        .number-card .label{font-size:13px;font-weight:600;color:var(--ink-60);text-transform:uppercase;letter-spacing:.04em}
+
+        .team-note{max-width:600px;margin:0 auto;text-align:center;padding:40px;background:var(--orange-xlt);border-radius:var(--radius-xl);border:1px solid rgba(234,88,12,.12)}
+        .team-note p{font-size:1rem;color:var(--ink-70);line-height:1.7}
+
+        @media(max-width:900px){
+            .about-grid{grid-template-columns:1fr;gap:32px}
+            .mission-cards{grid-template-columns:1fr}
+            .numbers-grid{grid-template-columns:1fr 1fr}
+        }
+        @media(max-width:480px){.numbers-grid{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+    <div class="nav-inner">
+        <div style="display:flex;align-items:center;">
+            <a href="index.html" class="nav-logo">
+                <img src="icons/icon-192.png" alt="City Mitra" class="nav-logo-icon">
+                <div><div class="nav-logo-text">City <span>Mitra</span></div><div class="nav-logo-sub">Your City's AI</div></div>
+            </a>
+            <button class="city-picker-btn" id="cityPickerBtn" onclick="toggleCityDropdown()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                <span id="selectedCityName">Kurukshetra</span>
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M2 4l3 3 3-3"/></svg>
+            </button>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="services.html" class="nav-link">Services</a>
+            <a href="cities.html" class="nav-link">Cities</a>
+            <a href="about.html" class="nav-link active">About</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </div>
+        <div class="nav-actions">
+            <a href="chat.html" class="nav-ai-btn" title="Open AI Chat">✦</a>
+            <a href="chat.html" class="nav-cta">→ Try AI Chat</a>
+            <button class="nav-hamburger" onclick="toggleMobileNav()">☰</button>
+        </div>
+    </div>
+    <div class="city-dropdown" id="cityDropdown">
+        <input type="text" class="city-search-input" id="citySearchInput" placeholder="Search cities..." oninput="filterCities(this.value)">
+        <div class="city-list" id="cityList"></div>
+        <div class="city-request-link" onclick="showCityRequest()">➕ Request a city addition</div>
+    </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="container">
+        <div class="section-label" style="color:var(--orange-lt);">💡 Our Story</div>
+        <h1 class="section-title">Making Government<br><span class="text-gradient">Accessible to Everyone.</span></h1>
+        <p class="section-subtitle" style="color:rgba(255,255,255,0.6);margin:0 auto;">City Mitra was born from a simple frustration: why is finding basic government information so hard in India?</p>
+    </div>
+</section>
+
+<div class="ad-slot"><!-- Google AdSense --></div>
+
+<!-- THE PROBLEM -->
+<section class="section about-story">
+    <div class="container">
+        <div class="about-grid">
+            <div class="reveal">
+                <div class="section-label">🎯 The Problem</div>
+                <h2 class="section-title">Government info is<br><span class="text-gradient">scattered everywhere.</span></h2>
+                <p class="section-subtitle">
+                    Want to know your DC's phone number? Check the district website. Need emergency contacts? Try a different site. Tourist places? Yet another portal. Scheme eligibility? Good luck navigating 10 different government portals.
+                </p>
+                <p class="section-subtitle" style="margin-top:16px;">
+                    For 1.4 billion Indians, accessing basic civic information shouldn't require a degree in internet navigation. We built City Mitra to fix this — <strong>one AI, every answer</strong>.
+                </p>
+            </div>
+            <div class="reveal">
+                <img src="images/hero-illustration.png" alt="City Mitra vision" style="border-radius:20px;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MISSION -->
+<section class="section" style="background:var(--surface);">
+    <div class="container text-center">
+        <div class="section-label">✨ Our Mission</div>
+        <h2 class="section-title">Centralize. Simplify. <span class="text-gradient">Empower.</span></h2>
+        <p class="section-subtitle mx-auto">Three pillars that drive everything we build.</p>
+
+        <div class="mission-cards">
+            <div class="mission-card reveal">
+                <div class="mission-card-icon" style="background:var(--orange-xlt);">🎯</div>
+                <h3>Centralize</h3>
+                <p>Bring all government data — officers, schemes, emergencies, tourism, census — into one unified, searchable platform.</p>
+            </div>
+            <div class="mission-card reveal">
+                <div class="mission-card-icon" style="background:#F5F3FF;">🗣️</div>
+                <h3>Simplify</h3>
+                <p>Make it conversational. Ask in Hindi, English, or Hinglish. No forms, no navigation — just type and get answers.</p>
+            </div>
+            <div class="mission-card reveal">
+                <div class="mission-card-icon" style="background:#ECFDF5;">🚀</div>
+                <h3>Empower</h3>
+                <p>Give every citizen — from farmers to students — instant access to the civic information they need, 24/7.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- NUMBERS -->
+<section class="section" style="background:var(--surface-warm);">
+    <div class="container text-center">
+        <div class="section-label">📊 By the Numbers</div>
+        <h2 class="section-title">Growing <span class="text-gradient">Rapidly.</span></h2>
+
+        <div class="numbers-grid">
+            <div class="number-card reveal">
+                <div class="num" style="color:var(--orange);">13</div>
+                <div class="label">Live Districts</div>
+            </div>
+            <div class="number-card reveal">
+                <div class="num" style="color:var(--violet);">7</div>
+                <div class="label">States Covered</div>
+            </div>
+            <div class="number-card reveal">
+                <div class="num" style="color:var(--emerald);">47K+</div>
+                <div class="label">Total Visits</div>
+            </div>
+            <div class="number-card reveal">
+                <div class="num" style="color:var(--sky);">2</div>
+                <div class="label">Languages</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="section" style="background:var(--surface);">
+    <div class="container text-center">
+        <div class="section-label">🛤️ Journey</div>
+        <h2 class="section-title">Our <span class="text-gradient">Story So Far.</span></h2>
+
+        <div class="timeline">
+            <div class="timeline-item reveal">
+                <div class="date">2024 — The Idea</div>
+                <h4>Kurukshetra InfoBot</h4>
+                <p>Started as a simple chatbot for Kurukshetra district — officers, tourist places, and emergency contacts.</p>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="date">2024 — Going Multi-City</div>
+                <h4>City Mitra Platform</h4>
+                <p>Evolved into a multi-city platform. Added Karnal, Ambala, Panchkula, Sirsa, Palwal, and Faridabad.</p>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="date">2025 — National Expansion</div>
+                <h4>7 States, 13 Districts</h4>
+                <p>Expanded beyond Haryana to Uttarakhand, Punjab, UP, Rajasthan, and Chandigarh. Added AskGita AI for Bhagavad Gita queries.</p>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="date">2025 — Today</div>
+                <h4>AI-First Redesign</h4>
+                <p>Rebuilt the entire platform with a modern AI-first interface. Added proximity alerts, voice support, and smart query routing.</p>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="date">Next — The Vision</div>
+                <h4>Every District in India</h4>
+                <p>Our goal: cover all 780+ districts across India. Make civic AI accessible to every citizen.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TEAM -->
+<section class="section" style="background:var(--surface-warm);">
+    <div class="container text-center">
+        <div class="section-label">👥 The Team</div>
+        <h2 class="section-title">Built by <span class="text-gradient">Passionate Builders.</span></h2>
+        <p class="section-subtitle mx-auto" style="margin-bottom:40px;">A small team with a big mission — making government accessible to every Indian.</p>
+        <div class="team-note reveal">
+            <p>🇮🇳 We're a team of developers, designers, and civic enthusiasts building City Mitra from India, for India. We believe technology should simplify governance, not complicate it.</p>
+            <a href="contact.html" class="btn btn-primary" style="margin-top:20px;">Get in Touch →</a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="section cta-section">
+    <div class="container">
+        <h2 class="section-title" style="color:white;">Ready to try it?</h2>
+        <p class="section-subtitle mx-auto" style="color:rgba(255,255,255,.6);">Pick your city and start asking. No sign-up. Completely free.</p>
+        <div class="cta-actions">
+            <a href="chat.html" class="btn btn-primary" style="font-size:17px;padding:16px 36px;">🏛️ Start Chatting</a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand"><div class="footer-brand-name">City <span>Mitra</span></div><p>India's first AI civic assistant.</p></div>
+            <div class="footer-col"><h4>Product</h4><a href="chat.html">AI Chat</a><a href="services.html">Services</a><a href="cities.html">Cities</a></div>
+            <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+            <div class="footer-col"><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a></div>
+        </div>
+        <div class="footer-bottom"><span>© 2025 City Mitra.</span><span>Built with ❤️ for India</span></div>
+    </div>
+</footer>
+
+<script src="js/city-picker.js"></script>
+<script src="js/animations.js"></script>
+</body>
+</html>

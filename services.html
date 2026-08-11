@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services — City Mitra | Complete Government Services Directory</title>
+    <meta name="description" content="Explore all government services available through City Mitra AI: governance, political setup, census, citizen services, public safety, tourism, and AI-powered digital assistant.">
+    <link rel="icon" href="icons/icon-192.png" type="image/png">
+    <link rel="stylesheet" href="css/design-tokens.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <style>
+        .page-hero { background: linear-gradient(135deg, var(--surface-dark) 0%, #1a0f2e 100%); padding: calc(var(--nav-h) + 60px) 0 80px; color: white; text-align: center; }
+        .page-hero .section-title { color: white; }
+        .page-hero .section-subtitle { color: rgba(255,255,255,0.6); margin: 0 auto; }
+
+        .service-detail { padding: 80px 0; border-bottom: 1px solid var(--ink-10); }
+        .service-detail:nth-child(even) { background: var(--ink-05); }
+        .service-detail-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .service-detail:nth-child(even) .service-detail-inner { direction: rtl; }
+        .service-detail:nth-child(even) .service-detail-inner > * { direction: ltr; }
+
+        .service-detail-icon { width: 80px; height: 80px; border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 40px; margin-bottom: 20px; }
+        .service-detail h2 { font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
+        .service-detail p { font-size: 1rem; color: var(--ink-60); line-height: 1.7; margin-bottom: 20px; }
+
+        .service-queries { display: flex; flex-direction: column; gap: 10px; }
+        .query-example { display: flex; align-items: center; gap: 10px; padding: 14px 18px; background: white; border: 1px solid var(--ink-20); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s; font-size: 14px; }
+        .query-example:hover { border-color: var(--orange); background: var(--orange-xlt); transform: translateX(4px); }
+        .query-example-icon { font-size: 18px; flex-shrink: 0; }
+        .query-example-text { flex: 1; }
+        .query-example-arrow { color: var(--orange); opacity: 0; transition: opacity 0.2s; }
+        .query-example:hover .query-example-arrow { opacity: 1; }
+
+        .service-visual { display: flex; flex-direction: column; gap: 12px; }
+        .visual-stat { display: flex; align-items: center; gap: 12px; padding: 16px; background: white; border: 1px solid var(--ink-20); border-radius: var(--radius-md); }
+        .visual-stat-icon { width: 40px; height: 40px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+        .visual-stat h4 { font-size: 0.95rem; font-weight: 700; }
+        .visual-stat p { font-size: 0.8rem; color: var(--ink-60); }
+
+        @media (max-width: 900px) {
+            .service-detail-inner { grid-template-columns: 1fr; gap: 32px; }
+            .service-detail:nth-child(even) .service-detail-inner { direction: ltr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+    <div class="nav-inner">
+        <div style="display:flex;align-items:center;">
+            <a href="index.html" class="nav-logo">
+                <img src="icons/icon-192.png" alt="City Mitra" class="nav-logo-icon">
+                <div>
+                    <div class="nav-logo-text">City <span>Mitra</span></div>
+                    <div class="nav-logo-sub">Your City's AI</div>
+                </div>
+            </a>
+            <button class="city-picker-btn" id="cityPickerBtn" onclick="toggleCityDropdown()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                <span id="selectedCityName">Kurukshetra</span>
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M2 4l3 3 3-3"/></svg>
+            </button>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="services.html" class="nav-link active">Services</a>
+            <a href="cities.html" class="nav-link">Cities</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </div>
+        <div class="nav-actions">
+            <a href="chat.html" class="nav-ai-btn" title="Open AI Chat">✦</a>
+            <a href="chat.html" class="nav-cta">→ Try AI Chat</a>
+            <button class="nav-hamburger" id="hamburgerBtn" onclick="toggleMobileNav()">☰</button>
+        </div>
+    </div>
+    <div class="city-dropdown" id="cityDropdown">
+        <input type="text" class="city-search-input" id="citySearchInput" placeholder="Search cities..." oninput="filterCities(this.value)">
+        <div class="city-list" id="cityList"></div>
+        <div class="city-request-link" onclick="showCityRequest()">➕ Request a city addition</div>
+    </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="container">
+        <div class="section-label" style="color: var(--orange-lt);">🏛️ All Government Information — One Place</div>
+        <h1 class="section-title">Every Government Service,<br><span class="text-gradient">One Intelligent Platform.</span></h1>
+        <p class="section-subtitle" style="color:rgba(255,255,255,0.6);margin:0 auto 32px;">Select your city. Ask about officers, schemes, emergencies, tourism, census. Get instant answers.</p>
+
+        <!-- Quick-jump cards -->
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;">
+            <a href="#governance" style="padding:12px 20px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:12px;color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;transition:all 0.2s;">🏛️ Governance</a>
+            <a href="#political" style="padding:12px 20px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:12px;color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;transition:all 0.2s;">⚖️ Political</a>
+            <a href="#census" style="padding:12px 20px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:12px;color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;transition:all 0.2s;">📊 Census</a>
+            <a href="#citizen" style="padding:12px 20px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:12px;color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;transition:all 0.2s;">📋 Schemes</a>
+            <a href="#safety" style="padding:12px 20px;background:rgba(234,88,12,0.2);border:1px solid rgba(234,88,12,0.35);border-radius:12px;color:var(--orange-lt);text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;transition:all 0.2s;">🚨 Emergency</a>
+            <a href="#tourism" style="padding:12px 20px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:12px;color:white;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;transition:all 0.2s;">🏕️ Tourism</a>
+        </div>
+    </div>
+</section>
+
+<!-- AD SLOT -->
+<div class="ad-slot"><!-- Google AdSense --></div>
+
+<!-- SERVICE 1: GOVERNANCE -->
+<section class="service-detail" id="governance">
+    <div class="container">
+        <div class="service-detail-inner">
+            <div class="reveal">
+                <div class="service-detail-icon" style="background: #FFF7ED;">🏛️</div>
+                <h2>Governance & Administration</h2>
+                <p>Get complete directory of government officers — DC, SDM, tehsildar, BDO, and all department heads. Know office addresses, phone numbers, email IDs, and office hours. No more searching multiple government websites.</p>
+                <a href="chat.html?q=Government+officers+in+my+district" class="btn btn-primary" style="margin-top:12px;">Ask about governance →</a>
+            </div>
+            <div class="service-queries reveal">
+                <div class="query-example" onclick="openChat('Who is the DC of Kurukshetra?')">
+                    <span class="query-example-icon">👤</span>
+                    <span class="query-example-text">Who is the DC of Kurukshetra?</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+                <div class="query-example" onclick="openChat('SDM office address and contact')">
+                    <span class="query-example-icon">🏢</span>
+                    <span class="query-example-text">SDM office address and contact</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+                <div class="query-example" onclick="openChat('List all tehsildars in district')">
+                    <span class="query-example-icon">📋</span>
+                    <span class="query-example-text">List all tehsildars in the district</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+                <div class="query-example" onclick="openChat('Agriculture department officer')">
+                    <span class="query-example-icon">🌾</span>
+                    <span class="query-example-text">Agriculture department officer</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICE 2: POLITICAL SETUP -->
+<section class="service-detail" id="political">
+    <div class="container">
+        <div class="service-detail-inner">
+            <div class="reveal">
+                <div class="service-detail-icon" style="background: #F5F3FF;">⚖️</div>
+                <h2>Political Setup</h2>
+                <p>Know your elected representatives — MLAs, MPs, councillors, sarpanches. Get contact details, constituency boundaries, election history, and political structure of your district.</p>
+                <a href="chat.html?q=Political+representatives+in+my+city" class="btn btn-primary" style="margin-top:12px;background:#7C3AED;box-shadow:0 4px 14px rgba(124,58,237,0.4);">Ask about politics →</a>
+            </div>
+            <div class="service-queries reveal">
+                <div class="query-example" onclick="openChat('Who is the MLA of my constituency?')">
+                    <span class="query-example-icon">⚖️</span>
+                    <span class="query-example-text">Who is the MLA of my constituency?</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+                <div class="query-example" onclick="openChat('MP of Kurukshetra')">
+                    <span class="query-example-icon">🏛️</span>
+                    <span class="query-example-text">MP of Kurukshetra Lok Sabha</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+                <div class="query-example" onclick="openChat('Municipal councillors in my area')">
+                    <span class="query-example-icon">🗳️</span>
+                    <span class="query-example-text">Municipal councillors in my area</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICE 3: CENSUS -->
+<section class="service-detail" id="census">
+    <div class="container">
+        <div class="service-detail-inner">
+            <div class="reveal">
+                <div class="service-detail-icon" style="background: #F0F9FF;">📊</div>
+                <h2>Census & Demographics</h2>
+                <p>Access population statistics, literacy rates, gender ratios, urban vs rural breakdowns, growth trends, and area data — all sourced from official census records.</p>
+                <a href="chat.html?q=Population+of+my+district" class="btn btn-primary" style="margin-top:12px;background:#0EA5E9;box-shadow:0 4px 14px rgba(14,165,233,0.4);">Ask census data →</a>
+            </div>
+            <div class="service-queries reveal">
+                <div class="query-example" onclick="openChat('Population of Kurukshetra district')">
+                    <span class="query-example-icon">📊</span>
+                    <span class="query-example-text">Population of Kurukshetra district</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+                <div class="query-example" onclick="openChat('Literacy rate of my district')">
+                    <span class="query-example-icon">📖</span>
+                    <span class="query-example-text">Literacy rate of my district</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+                <div class="query-example" onclick="openChat('Gender ratio and demographics')">
+                    <span class="query-example-icon">👥</span>
+                    <span class="query-example-text">Gender ratio and demographics</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICE 4: CITIZEN SERVICES -->
+<section class="service-detail" id="citizen">
+    <div class="container">
+        <div class="service-detail-inner">
+            <div class="reveal">
+                <div class="service-detail-icon" style="background: #ECFDF5;">📋</div>
+                <h2>Citizen Services & Schemes</h2>
+                <p>Birth certificates, ration cards, pension schemes, Ayushman Bharat, PM Kisan, MGNREGA — know eligibility, required documents, application process, and nearest office. Everything a citizen needs.</p>
+                <a href="chat.html?q=Government+schemes+available" class="btn btn-primary" style="margin-top:12px;background:#059669;box-shadow:0 4px 14px rgba(5,150,105,0.4);">Ask about schemes →</a>
+            </div>
+            <div class="service-queries reveal">
+                <div class="query-example" onclick="openChat('How to apply for birth certificate?')">
+                    <span class="query-example-icon">📋</span>
+                    <span class="query-example-text">How to apply for birth certificate?</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+                <div class="query-example" onclick="openChat('Ayushman Bharat eligibility')">
+                    <span class="query-example-icon">🏥</span>
+                    <span class="query-example-text">Ayushman Bharat eligibility</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+                <div class="query-example" onclick="openChat('PM Kisan Samman Nidhi details')">
+                    <span class="query-example-icon">🌾</span>
+                    <span class="query-example-text">PM Kisan Samman Nidhi details</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+                <div class="query-example" onclick="openChat('Ration card application process')">
+                    <span class="query-example-icon">🍚</span>
+                    <span class="query-example-text">Ration card application process</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICE 5: PUBLIC SAFETY -->
+<section class="service-detail" id="safety">
+    <div class="container">
+        <div class="service-detail-inner">
+            <div class="reveal">
+                <div class="service-detail-icon" style="background: #FFF1F2;">🚨</div>
+                <h2>Public Safety & Health</h2>
+                <p>Emergency helplines (100, 108, 112), nearest police stations, fire brigade, hospitals, blood banks, ambulance services — everything for crisis situations, available 24/7.</p>
+                <a href="chat.html?q=Emergency+contacts" class="btn btn-primary" style="margin-top:12px;background:#E11D48;box-shadow:0 4px 14px rgba(225,29,72,0.4);">Get emergency info →</a>
+            </div>
+            <div class="service-queries reveal">
+                <div class="query-example" onclick="openChat('Emergency helpline numbers')">
+                    <span class="query-example-icon">🚨</span>
+                    <span class="query-example-text">Emergency helpline numbers</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+                <div class="query-example" onclick="openChat('Nearest hospital to my location')">
+                    <span class="query-example-icon">🏥</span>
+                    <span class="query-example-text">Nearest hospital</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+                <div class="query-example" onclick="openChat('Police station contact details')">
+                    <span class="query-example-icon">🚓</span>
+                    <span class="query-example-text">Police station contact details</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICE 6: TOURISM -->
+<section class="service-detail" id="tourism">
+    <div class="container">
+        <div class="service-detail-inner">
+            <div class="reveal">
+                <div class="service-detail-icon" style="background: #FFFBEB;">🏕️</div>
+                <h2>Tourism & Local Economy</h2>
+                <p>Discover tourist attractions, heritage sites, hotels, restaurants, local markets, festivals, transport routes, and how to reach. Your complete AI-powered travel companion.</p>
+                <a href="chat.html?q=Tourist+places+to+visit" class="btn btn-primary" style="margin-top:12px;background:#D97706;box-shadow:0 4px 14px rgba(217,119,6,0.4);">Explore tourism →</a>
+            </div>
+            <div class="service-queries reveal">
+                <div class="query-example" onclick="openChat('Best tourist places to visit')">
+                    <span class="query-example-icon">🏛️</span>
+                    <span class="query-example-text">Best tourist places to visit</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+                <div class="query-example" onclick="openChat('How to reach Kurukshetra by train?')">
+                    <span class="query-example-icon">🚂</span>
+                    <span class="query-example-text">How to reach by train?</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+                <div class="query-example" onclick="openChat('Hotels near Brahma Sarovar')">
+                    <span class="query-example-icon">🏨</span>
+                    <span class="query-example-text">Hotels near Brahma Sarovar</span>
+                    <span class="query-example-arrow">→</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="section cta-section">
+    <div class="container">
+        <h2 class="section-title" style="color:white;">Ready to ask your city's AI?</h2>
+        <p class="section-subtitle mx-auto" style="color:rgba(255,255,255,0.6);">Pick your city, ask a question — it's free and instant.</p>
+        <div class="cta-actions">
+            <a href="chat.html" class="btn btn-primary" style="font-size:17px;padding:16px 36px;">🏛️ Start Chatting Now</a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-brand-name">City <span>Mitra</span></div>
+                <p>India's first AI-powered civic assistant. All government information, one platform.</p>
+            </div>
+            <div class="footer-col"><h4>Product</h4><a href="chat.html">AI Chat</a><a href="services.html">Services</a><a href="cities.html">Cities</a><a href="about.html">About</a></div>
+            <div class="footer-col"><h4>Services</h4><a href="#governance">Governance</a><a href="#census">Census</a><a href="#safety">Emergency</a><a href="#tourism">Tourism</a></div>
+            <div class="footer-col"><h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Terms</a><a href="contact.html">Contact</a></div>
+        </div>
+        <div class="footer-bottom"><span>© 2025 City Mitra.</span><span>Built with ❤️ for India</span></div>
+    </div>
+</footer>
+
+<script src="js/city-picker.js"></script>
+<script src="js/animations.js"></script>
+</body>
+</html>

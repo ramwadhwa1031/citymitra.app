@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Cities — City Mitra | 13 Districts Across India</title>
+    <meta name="description" content="City Mitra is live in 13 districts across 7 states. Each city has its own dedicated AI trained on official district data.">
+    <link rel="icon" href="icons/icon-192.png" type="image/png">
+    <link rel="stylesheet" href="css/design-tokens.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <style>
+        .page-hero { background: linear-gradient(135deg, var(--surface-dark) 0%, #0f1a2e 100%); padding: calc(var(--nav-h) + 60px) 0 80px; color: white; text-align: center; }
+        .page-hero .section-title { color: white; }
+
+        .all-cities-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; margin-top: 48px; }
+
+        .city-detail-card { background: white; border: 1px solid var(--ink-20); border-radius: var(--radius-lg); overflow: hidden; transition: all 0.3s; cursor: pointer; }
+        .city-detail-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-6px); }
+
+        .city-card-header { padding: 28px; color: white; position: relative; }
+        .city-card-header h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 4px; }
+        .city-card-header .state { font-size: 13px; opacity: 0.8; }
+        .city-card-header .emoji { font-size: 32px; position: absolute; top: 20px; right: 20px; }
+        .city-card-header .live-dot { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; margin-top: 8px; }
+        .city-card-header .live-dot::before { content: ''; width: 6px; height: 6px; background: #34D399; border-radius: 50%; animation: pulse-dot 2s infinite; }
+
+        .city-card-body { padding: 24px 28px; }
+        .city-card-body p { font-size: 0.9rem; color: var(--ink-60); line-height: 1.6; margin-bottom: 16px; }
+
+        .city-card-services { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+        .city-card-services span { padding: 4px 10px; background: var(--ink-05); border-radius: var(--radius-full); font-size: 12px; color: var(--ink-60); }
+
+        .city-card-cta { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--orange); }
+
+        .request-section { background: linear-gradient(135deg, var(--orange-xlt), #FFF7ED); padding: 80px 0; text-align: center; }
+        .request-section h2 { font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
+        .request-section p { font-size: 1rem; color: var(--ink-60); max-width: 500px; margin: 0 auto 24px; }
+
+        @media (max-width: 480px) { .all-cities-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+    <div class="nav-inner">
+        <div style="display:flex;align-items:center;">
+            <a href="index.html" class="nav-logo">
+                <img src="icons/icon-192.png" alt="City Mitra" class="nav-logo-icon">
+                <div><div class="nav-logo-text">City <span>Mitra</span></div><div class="nav-logo-sub">Your City's AI</div></div>
+            </a>
+            <button class="city-picker-btn" id="cityPickerBtn" onclick="toggleCityDropdown()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                <span id="selectedCityName">Kurukshetra</span>
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M2 4l3 3 3-3"/></svg>
+            </button>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="services.html" class="nav-link">Services</a>
+            <a href="cities.html" class="nav-link active">Cities</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </div>
+        <div class="nav-actions">
+            <a href="chat.html" class="nav-ai-btn" title="Open AI Chat">✦</a>
+            <a href="chat.html" class="nav-cta">→ Try AI Chat</a>
+            <button class="nav-hamburger" onclick="toggleMobileNav()">☰</button>
+        </div>
+    </div>
+    <div class="city-dropdown" id="cityDropdown">
+        <input type="text" class="city-search-input" id="citySearchInput" placeholder="Search cities..." oninput="filterCities(this.value)">
+        <div class="city-list" id="cityList"></div>
+        <div class="city-request-link" onclick="showCityRequest()">➕ Request a city addition</div>
+    </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="container">
+        <div class="section-label" style="color:var(--orange-lt);">🗺️ Live Network</div>
+        <h1 class="section-title">13 Districts. 7 States.<br><span class="text-gradient">One AI Platform.</span></h1>
+        <p class="section-subtitle" style="color:rgba(255,255,255,0.6); margin:0 auto;">Each city has its own dedicated AI, trained on official district data. Always accurate, always local.</p>
+        <div style="margin-top:20px;"><span class="pill pill-live">● All districts active</span></div>
+    </div>
+</section>
+
+<div class="ad-slot"><!-- Google AdSense --></div>
+
+<!-- ALL CITIES -->
+<section class="section" style="background: var(--surface-warm);">
+    <div class="container">
+        <div class="all-cities-grid" id="allCitiesGrid"></div>
+    </div>
+</section>
+
+<!-- REQUEST SECTION -->
+<section class="request-section">
+    <div class="container">
+        <h2>Don't see your city?</h2>
+        <p>We're expanding rapidly. Request your city and we'll prioritize it in our roadmap.</p>
+        <button class="btn btn-primary" onclick="showCityRequest()">➕ Request City Addition</button>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand"><div class="footer-brand-name">City <span>Mitra</span></div><p>India's first AI civic assistant.</p></div>
+            <div class="footer-col"><h4>Product</h4><a href="chat.html">AI Chat</a><a href="services.html">Services</a><a href="cities.html">Cities</a></div>
+            <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+            <div class="footer-col"><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a></div>
+        </div>
+        <div class="footer-bottom"><span>© 2025 City Mitra.</span><span>Built with ❤️ for India</span></div>
+    </div>
+</footer>
+
+<script src="js/city-picker.js"></script>
+<script src="js/animations.js"></script>
+<script>
+    // Render all 13 cities with detail cards
+    const CITY_DATA = [
+        { id: 'kkr', name: 'Kurukshetra', state: 'Haryana', emoji: '🕉️', color: '#EA580C', desc: 'Holy land of the Mahabharata. Home to Brahma Sarovar, 48 Kos Parikrama, and International Gita Mahotsav. The only city with dedicated Bhagavad Gita AI.', services: ['Gita AI', 'Heritage', 'Tourism', 'Officers', 'Emergency'] },
+        { id: 'ftb', name: 'Fatehabad', state: 'Haryana', emoji: '🏛️', color: '#E65100', desc: 'Pink City of Haryana. Ancient fort, rich agricultural heritage, and complete civic infrastructure.', services: ['Heritage', 'Agriculture', 'Services', 'Officers'] },
+        { id: 'karnal', name: 'Karnal', state: 'Haryana', emoji: '🌾', color: '#2E7D32', desc: 'Thriving agricultural hub. Home to NDRI and major dairy industries. Complete civic services from officers to schemes.', services: ['NDRI', 'Agriculture', 'Services', 'Officers'] },
+        { id: 'ambala', name: 'Ambala', state: 'Haryana', emoji: '🏛️', color: '#1565C0', desc: 'Gateway of the north. Major cantonment city with rich history. Railway junction connecting north India.', services: ['Cantonment', 'Railways', 'Officers', 'Tourism'] },
+        { id: 'pkl', name: 'Panchkula', state: 'Haryana', emoji: '🏔️', color: '#00695C', desc: 'Shivalik foothills paradise. Home to Morni Hills, Cactus Garden, and modern urban planning.', services: ['Morni Hills', 'Nature', 'Parks', 'Officers'] },
+        { id: 'srs', name: 'Sirsa', state: 'Haryana', emoji: '🌿', color: '#6A1B9A', desc: 'Rich cultural heritage. Known for folk art, religious sites, and agriculture. Western Haryana\'s cultural capital.', services: ['Culture', 'Heritage', 'Agriculture', 'Officers'] },
+        { id: 'palwal', name: 'Palwal', state: 'Haryana', emoji: '🛕', color: '#E65100', desc: 'Ancient roots with Panchavati Temple, Dauji Temple, and Draupadi Ghat. Southern Haryana heritage hub.', services: ['Temples', 'Heritage', 'Officers', 'Emergency'] },
+        { id: 'fbd', name: 'Faridabad', state: 'Haryana', emoji: '🏭', color: '#C62828', desc: 'Haryana\'s largest city and industrial powerhouse. Major NCR hub with extensive civic infrastructure.', services: ['Industrial', 'NCR', 'Officers', 'Transport'] },
+        { id: 'ddn', name: 'Dehradun', state: 'Uttarakhand', emoji: '🏔️', color: '#1B5E20', desc: 'Capital of Uttarakhand. Gateway to Mussoorie, Rishikesh, and the Himalayas. Education and tourism hub.', services: ['Hill Stations', 'Education', 'Tourism', 'Officers'] },
+        { id: 'asr', name: 'Amritsar', state: 'Punjab', emoji: '🛕', color: '#E65100', desc: 'Home to the Golden Temple. Spiritual capital of Sikhism with Wagah Border and rich Punjabi culture.', services: ['Golden Temple', 'Wagah', 'Culture', 'Officers'] },
+        { id: 'vnr', name: 'Varanasi', state: 'Uttar Pradesh', emoji: '🕉️', color: '#BF360C', desc: 'World\'s oldest living city. Sacred ghats, ancient temples, and the spiritual heartland of India.', services: ['Ghats', 'Temples', 'Tourism', 'Officers'] },
+        { id: 'jpr', name: 'Jaipur', state: 'Rajasthan', emoji: '🏰', color: '#AD1457', desc: 'The Pink City. Magnificent forts, palaces, and Rajasthani culture. UNESCO World Heritage Site.', services: ['Forts', 'Palaces', 'Heritage', 'Tourism'] },
+        { id: 'lko', name: 'Lucknow', state: 'Uttar Pradesh', emoji: '🕌', color: '#4527A0', desc: 'City of Nawabs. Mughal architecture, world-famous cuisine, and rich cultural heritage.', services: ['Architecture', 'Cuisine', 'Culture', 'Officers'] },
+        { id: 'chd', name: 'Chandigarh', state: 'Chandigarh', emoji: '🌹', color: '#00838F', desc: 'Le Corbusier\'s planned city. India\'s cleanest city with modern infrastructure and Rock Garden.', services: ['Rock Garden', 'Sukhna Lake', 'Modern', 'Officers'] }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const grid = document.getElementById('allCitiesGrid');
+        grid.innerHTML = CITY_DATA.map(c => `
+            <div class="city-detail-card reveal" onclick="pickCity('${c.id}'); openChat('');">
+                <div class="city-card-header" style="background: ${c.color};">
+                    <h3>${c.name}</h3>
+                    <div class="state">${c.state}</div>
+                    <div class="live-dot">LIVE</div>
+                    <span class="emoji">${c.emoji}</span>
+                </div>
+                <div class="city-card-body">
+                    <p>${c.desc}</p>
+                    <div class="city-card-services">
+                        ${c.services.map(s => `<span>${s}</span>`).join('')}
+                    </div>
+                    <span class="city-card-cta">Chat with ${c.name} AI →</span>
+                </div>
+            </div>
+        `).join('');
+
+        // Observe reveals
+        document.querySelectorAll('.reveal').forEach(el => {
+            const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, { threshold: 0.1 });
+            obs.observe(el);
+        });
+    });
+</script>
+</body>
+</html>

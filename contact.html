@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — City Mitra | Get in Touch</title>
+    <meta name="description" content="Contact the City Mitra team for support, city addition requests, partnerships, or feedback.">
+    <link rel="icon" href="icons/icon-192.png" type="image/png">
+    <link rel="stylesheet" href="css/design-tokens.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <style>
+        .page-hero{background:linear-gradient(135deg,var(--surface-dark) 0%,#1a0f2e 100%);padding:calc(var(--nav-h)+60px) 0 80px;color:white;text-align:center}
+        .page-hero .section-title{color:white}
+
+        .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:48px}
+
+        .contact-info{display:flex;flex-direction:column;gap:24px}
+        .contact-card{display:flex;gap:16px;padding:24px;background:var(--ink-05);border:1px solid var(--ink-20);border-radius:var(--radius-lg);transition:all .3s}
+        .contact-card:hover{border-color:var(--orange-lt);background:var(--orange-xlt)}
+        .contact-card-icon{width:48px;height:48px;border-radius:var(--radius-md);background:var(--orange-xlt);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+        .contact-card h3{font-size:1rem;font-weight:700;margin-bottom:4px}
+        .contact-card p{font-size:.9rem;color:var(--ink-60)}
+        .contact-card a{color:var(--orange);font-weight:600}
+
+        .contact-form{background:white;border:1px solid var(--ink-20);border-radius:var(--radius-xl);padding:40px;box-shadow:var(--shadow-md)}
+        .contact-form h3{font-size:1.25rem;font-weight:700;margin-bottom:8px}
+        .contact-form .subtitle{font-size:.9rem;color:var(--ink-60);margin-bottom:24px}
+
+        .form-group{margin-bottom:20px}
+        .form-label{display:block;font-size:13px;font-weight:600;color:var(--ink-70);margin-bottom:6px}
+        .form-input,.form-textarea,.form-select{width:100%;padding:12px 16px;border:1px solid var(--ink-20);border-radius:var(--radius-sm);font-size:14px;font-family:var(--font-sans);outline:none;transition:border-color .2s;background:white}
+        .form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--orange)}
+        .form-textarea{resize:vertical;min-height:120px}
+        .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+        .form-submit{width:100%;padding:14px;background:var(--orange);color:white;font-size:15px;font-weight:600;border-radius:var(--radius-md);cursor:pointer;transition:all .2s;border:none}
+        .form-submit:hover{background:var(--orange-deep);transform:translateY(-1px)}
+
+        .faq-section{background:var(--surface-warm)}
+        .faq-grid{max-width:700px;margin:48px auto 0;display:flex;flex-direction:column;gap:12px}
+        .faq-item{background:white;border:1px solid var(--ink-20);border-radius:var(--radius-md);overflow:hidden}
+        .faq-q{padding:18px 20px;font-weight:600;font-size:.95rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .2s}
+        .faq-q:hover{background:var(--ink-05)}
+        .faq-a{padding:0 20px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;font-size:.9rem;color:var(--ink-60);line-height:1.6}
+        .faq-item.open .faq-a{max-height:200px;padding:0 20px 18px}
+        .faq-item.open .faq-q{color:var(--orange)}
+        .faq-toggle{font-size:18px;transition:transform .3s}
+        .faq-item.open .faq-toggle{transform:rotate(45deg)}
+
+        @media(max-width:900px){.contact-grid{grid-template-columns:1fr;gap:32px}.form-row{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+    <div class="nav-inner">
+        <div style="display:flex;align-items:center;">
+            <a href="index.html" class="nav-logo">
+                <img src="icons/icon-192.png" alt="City Mitra" class="nav-logo-icon">
+                <div><div class="nav-logo-text">City <span>Mitra</span></div><div class="nav-logo-sub">Your City's AI</div></div>
+            </a>
+            <button class="city-picker-btn" id="cityPickerBtn" onclick="toggleCityDropdown()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                <span id="selectedCityName">Kurukshetra</span>
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M2 4l3 3 3-3"/></svg>
+            </button>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="services.html" class="nav-link">Services</a>
+            <a href="cities.html" class="nav-link">Cities</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="contact.html" class="nav-link active">Contact</a>
+        </div>
+        <div class="nav-actions">
+            <a href="chat.html" class="nav-ai-btn" title="Open AI Chat">✦</a>
+            <a href="chat.html" class="nav-cta">→ Try AI Chat</a>
+            <button class="nav-hamburger" onclick="toggleMobileNav()">☰</button>
+        </div>
+    </div>
+    <div class="city-dropdown" id="cityDropdown">
+        <input type="text" class="city-search-input" id="citySearchInput" placeholder="Search cities..." oninput="filterCities(this.value)">
+        <div class="city-list" id="cityList"></div>
+        <div class="city-request-link" onclick="showCityRequest()">➕ Request a city addition</div>
+    </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="container">
+        <div class="section-label" style="color:var(--orange-lt);">📬 Contact</div>
+        <h1 class="section-title">Get in <span class="text-gradient">Touch.</span></h1>
+        <p class="section-subtitle" style="color:rgba(255,255,255,.6);margin:0 auto;">Have a question, want to request a city, or interested in partnering? We'd love to hear from you.</p>
+    </div>
+</section>
+
+<div class="ad-slot"><!-- Google AdSense --></div>
+
+<!-- CONTACT SECTION -->
+<section class="section" style="background:var(--surface);">
+    <div class="container">
+        <div class="contact-grid">
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <div class="contact-card reveal">
+                    <div class="contact-card-icon">📧</div>
+                    <div>
+                        <h3>Email Us</h3>
+                        <p>For general queries and support</p>
+                        <a href="mailto:hello@citymitra.app">hello@citymitra.app</a>
+                    </div>
+                </div>
+                <div class="contact-card reveal">
+                    <div class="contact-card-icon">🏙️</div>
+                    <div>
+                        <h3>Request a City</h3>
+                        <p>Want your district added to City Mitra?</p>
+                        <a href="#" onclick="showCityRequest(); return false;">Submit a request →</a>
+                    </div>
+                </div>
+                <div class="contact-card reveal">
+                    <div class="contact-card-icon">🤝</div>
+                    <div>
+                        <h3>Partnerships</h3>
+                        <p>Government bodies, NGOs, or tech partners</p>
+                        <a href="mailto:partners@citymitra.app">partners@citymitra.app</a>
+                    </div>
+                </div>
+                <div class="contact-card reveal">
+                    <div class="contact-card-icon">🐛</div>
+                    <div>
+                        <h3>Report a Bug</h3>
+                        <p>Found incorrect information or a technical issue?</p>
+                        <a href="mailto:bugs@citymitra.app">bugs@citymitra.app</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form reveal">
+                <h3>Send us a message</h3>
+                <p class="subtitle">We typically respond within 24 hours.</p>
+
+                <form id="contactForm" onsubmit="handleContactSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Name *</label>
+                            <input type="text" class="form-input" required placeholder="Your name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email *</label>
+                            <input type="email" class="form-input" required placeholder="your@email.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Subject</label>
+                        <select class="form-select">
+                            <option>General Inquiry</option>
+                            <option>Request City Addition</option>
+                            <option>Report Incorrect Information</option>
+                            <option>Partnership / Collaboration</option>
+                            <option>Technical Issue / Bug</option>
+                            <option>Feedback / Suggestion</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Message *</label>
+                        <textarea class="form-textarea" required placeholder="Tell us how we can help..."></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Send Message →</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq-section">
+    <div class="container text-center">
+        <div class="section-label">❓ FAQ</div>
+        <h2 class="section-title">Common <span class="text-gradient">Questions.</span></h2>
+
+        <div class="faq-grid">
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">Is City Mitra free to use? <span class="faq-toggle">+</span></div>
+                <div class="faq-a">Yes! City Mitra is completely free for all citizens. No sign-up, no subscription, no hidden charges. Just pick your city and start asking.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">How accurate is the information? <span class="faq-toggle">+</span></div>
+                <div class="faq-a">We source all data from official government websites, district portals, and verified records. However, as an AI system, we recommend verifying critical information like emergency contacts and timings.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">Can I use City Mitra in Hindi? <span class="faq-toggle">+</span></div>
+                <div class="faq-a">Absolutely! City Mitra supports both Hindi and English. You can even ask in Hinglish (mixed language) and the AI will understand your query perfectly.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">How can I add my city? <span class="faq-toggle">+</span></div>
+                <div class="faq-a">Click the "Request City Addition" button on any page, or email us at hello@citymitra.app. We prioritize cities based on demand and data availability.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">Is my chat data stored? <span class="faq-toggle">+</span></div>
+                <div class="faq-a">Chat history is stored locally in your browser (localStorage). We don't store your conversations on our servers. You can clear your chat history anytime.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">Can I install City Mitra as an app? <span class="faq-toggle">+</span></div>
+                <div class="faq-a">Yes! City Mitra is a Progressive Web App (PWA). On mobile, tap "Add to Home Screen" in your browser menu. It works offline for cached queries.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="section cta-section">
+    <div class="container">
+        <h2 class="section-title" style="color:white;">Rather just chat?</h2>
+        <p class="section-subtitle mx-auto" style="color:rgba(255,255,255,.6);">Ask our AI assistant directly — it might already have your answer.</p>
+        <div class="cta-actions">
+            <a href="chat.html" class="btn btn-primary" style="font-size:17px;padding:16px 36px;">🏛️ Open AI Chat</a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand"><div class="footer-brand-name">City <span>Mitra</span></div><p>India's first AI civic assistant.</p></div>
+            <div class="footer-col"><h4>Product</h4><a href="chat.html">AI Chat</a><a href="services.html">Services</a><a href="cities.html">Cities</a></div>
+            <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+            <div class="footer-col"><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a></div>
+        </div>
+        <div class="footer-bottom"><span>© 2025 City Mitra.</span><span>Built with ❤️ for India</span></div>
+    </div>
+</footer>
+
+<script src="js/city-picker.js"></script>
+<script src="js/animations.js"></script>
+<script>
+    function toggleFaq(el) {
+        const item = el.closest('.faq-item');
+        document.querySelectorAll('.faq-item').forEach(f => { if (f !== item) f.classList.remove('open'); });
+        item.classList.toggle('open');
+    }
+
+    function handleContactSubmit(e) {
+        e.preventDefault();
+        const btn = e.target.querySelector('.form-submit');
+        btn.textContent = 'Sending...';
+        btn.disabled = true;
+        setTimeout(() => {
+            btn.textContent = '✅ Message Sent!';
+            btn.style.background = 'var(--emerald)';
+            setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; btn.disabled = false; e.target.reset(); }, 3000);
+        }, 1500);
+    }
+</script>
+</body>
+</html>

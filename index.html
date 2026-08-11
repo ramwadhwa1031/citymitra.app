@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Mitra — Your City's AI Assistant | All Government Services in One Place</title>
+    <meta name="description" content="City Mitra centralizes all government information — officers, schemes, emergency contacts, tourism, census data — into one AI-powered platform. Live in 13 districts across India.">
+    <meta name="keywords" content="City Mitra, government services, AI assistant, civic chatbot, India, district information, emergency contacts, tourism, schemes">
+    <link rel="icon" href="icons/icon-192.png" type="image/png">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="City Mitra — Your City's AI Assistant">
+    <meta property="og:description" content="All government services centralized in one AI. Ask about officers, schemes, tourism, emergencies & more.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://citymitra.app">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/design-tokens.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/sections.css">
+</head>
+<body class="has-marquee">
+
+<!-- ══════════════════════════════════════════ -->
+<!-- NAVBAR                                     -->
+<!-- ══════════════════════════════════════════ -->
+<nav class="navbar" id="navbar">
+    <div class="nav-inner">
+        <div style="display:flex;align-items:center;">
+            <a href="index.html" class="nav-logo">
+                <img src="icons/icon-192.png" alt="City Mitra" class="nav-logo-icon">
+                <div>
+                    <div class="nav-logo-text">City <span>Mitra</span></div>
+                    <div class="nav-logo-sub">Your City's AI</div>
+                </div>
+            </a>
+            <button class="city-picker-btn" id="cityPickerBtn" onclick="toggleCityDropdown()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                <span id="selectedCityName">Kurukshetra</span>
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M2 4l3 3 3-3"/></svg>
+            </button>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <a href="index.html" class="nav-link active">Home</a>
+            <a href="services.html" class="nav-link">Services</a>
+            <a href="cities.html" class="nav-link">Cities</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </div>
+
+        <div class="nav-actions">
+            <a href="chat.html" class="nav-ai-btn" title="Open AI Chat">✦</a>
+            <a href="chat.html" class="nav-cta">→ Try AI Chat</a>
+            <button class="nav-hamburger" id="hamburgerBtn" onclick="toggleMobileNav()">☰</button>
+        </div>
+    </div>
+
+    <!-- City Dropdown -->
+    <div class="city-dropdown" id="cityDropdown">
+        <input type="text" class="city-search-input" id="citySearchInput" placeholder="Search cities..." oninput="filterCities(this.value)">
+        <div class="city-list" id="cityList"></div>
+        <div class="city-request-link" id="cityRequestLink" onclick="showCityRequest()">
+            ➕ Request a city addition
+        </div>
+    </div>
+</nav>
+
+
+<!-- ── Marquee Tagline Bar ── -->
+<div class="marquee-bar">
+    <div class="marquee-track">
+        <span>🏛️ All Government Information For Your City — One Place &nbsp;&nbsp;|&nbsp;&nbsp; ✦ AI-Powered City Assistant &nbsp;&nbsp;|&nbsp;&nbsp; 📞 Emergency Contacts, Officers, Schemes &nbsp;&nbsp;|&nbsp;&nbsp; 🗺️ Tourist Guide &nbsp;&nbsp;|&nbsp;&nbsp; 🏛️ All Government Information For Your City — One Place &nbsp;&nbsp;|&nbsp;&nbsp; ✦ AI-Powered City Assistant &nbsp;&nbsp;|&nbsp;&nbsp; 📞 Emergency Contacts, Officers, Schemes &nbsp;&nbsp;|&nbsp;&nbsp; 🗺️ Tourist Guide &nbsp;&nbsp;|&nbsp;&nbsp;</span>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- HERO SECTION                               -->
+<!-- ══════════════════════════════════════════ -->
+<section class="hero" id="hero">
+    <div class="hero-bg-image"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-inner container">
+        <!-- Left: Content Column -->
+        <div class="hero-content">
+            <div class="hero-badge">● Live in 13 districts</div>
+            <h1 class="hero-title">
+                Ask your city<br>
+                <span class="text-gradient">anything.</span>
+            </h1>
+            <p class="hero-subtitle">
+                Your 24×7 AI assistant for all city information, services,<br>
+                schemes, emergencies & more.
+            </p>
+            <div class="hero-lang-toggle">
+                <span class="lang-chip active">🌐 Hindi</span>
+                <span class="lang-divider">|</span>
+                <span class="lang-chip">English</span>
+            </div>
+            <div class="hero-actions">
+                <a href="chat.html" class="btn btn-primary">✦ Start Chatting</a>
+                <a href="services.html" class="btn btn-ghost">⊞ Explore Services</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-icon">🏛️</span>
+                    <div><span class="hero-stat-num">13</span><span class="hero-stat-label">Districts</span></div>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-icon">📍</span>
+                    <div><span class="hero-stat-num">7</span><span class="hero-stat-label">States</span></div>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-icon">👥</span>
+                    <div><span class="hero-stat-num">47K+</span><span class="hero-stat-label">Happy Users</span></div>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-icon">💬</span>
+                    <div><span class="hero-stat-num">12K+</span><span class="hero-stat-label">Queries Solved</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Chat Mockup -->
+        <div class="hero-visual">
+            <div class="hero-mockup">
+                <div class="mockup-header">
+                    <div class="mockup-avatar">
+                        <img src="assets/logo.png" alt="CityMitra" onerror="this.textContent='✦'">
+                    </div>
+                    <div class="mockup-header-text">
+                        <span class="mockup-name">CityMitra AI</span>
+                        <span class="mockup-status">● Online</span>
+                    </div>
+                    <div class="mockup-header-actions">
+                        <span>🔄</span> <span>⋮</span>
+                    </div>
+                </div>
+                <div class="mockup-chat">
+                    <div class="mockup-msg mockup-msg-user">
+                        Who is the DC of Kurukshetra? 🏛️
+                        <span class="mockup-time">11:45 AM ✓✓</span>
+                    </div>
+                    <div class="mockup-msg mockup-msg-bot">
+                        <div class="mockup-bot-card">
+                            <div class="mockup-card-header">Deputy Commissioner, Kurukshetra</div>
+                            <div class="mockup-card-field">👤 Shri Abhishek Jain, IAS</div>
+                            <div class="mockup-card-field">📞 01744-291100 | 🏢 Mini Secretariat</div>
+                        </div>
+                        <span class="mockup-time">11:45 AM</span>
+                    </div>
+                    <div class="mockup-msg mockup-msg-user" style="animation-delay:1.5s;">
+                        Emergency contacts near me? 🚨
+                        <span class="mockup-time">11:46 AM ✓✓</span>
+                    </div>
+                </div>
+                <div class="mockup-nearby">
+                    <div class="mockup-nearby-chip"><span class="mnc-icon" style="background:#3B82F6;">📍</span>Police<br><small>near me</small></div>
+                    <div class="mockup-nearby-chip"><span class="mnc-icon" style="background:#EF4444;">🏥</span>Hospital<br><small>near me</small></div>
+                    <div class="mockup-nearby-chip"><span class="mnc-icon" style="background:#F97316;">🚒</span>Fire Station<br><small>near me</small></div>
+                    <span class="mockup-nearby-arrow">›</span>
+                </div>
+                <div class="mockup-input">
+                    <span class="mockup-input-text">Type anything about your city...</span>
+                    <div class="mockup-input-mic">🎤</div>
+                    <div class="mockup-input-send">↑</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature Cards Strip -->
+    <div class="hero-features container">
+        <div class="hero-feature-card">
+            <span class="hfc-icon">🤖</span>
+            <div><strong>Smart AI Assistant</strong><small>Trained on official city data</small></div>
+            <span class="hfc-arrow">›</span>
+        </div>
+        <div class="hero-feature-card">
+            <span class="hfc-icon">⚡</span>
+            <div><strong>Accurate & Trusted</strong><small>Verified by local authorities</small></div>
+            <span class="hfc-arrow">›</span>
+        </div>
+        <div class="hero-feature-card">
+            <span class="hfc-icon">🕐</span>
+            <div><strong>24×7 Available</strong><small>Instant answers anytime</small></div>
+            <span class="hfc-arrow">›</span>
+        </div>
+        <div class="hero-feature-card">
+            <span class="hfc-icon">🌐</span>
+            <div><strong>Multi-language</strong><small>Hindi & English support</small></div>
+            <span class="hfc-arrow">›</span>
+        </div>
+        <div class="hero-feature-card">
+            <span class="hfc-icon">🚨</span>
+            <div><strong>Emergency Ready</strong><small>Quick emergency access</small></div>
+            <span class="hfc-arrow">›</span>
+        </div>
+    </div>
+
+    <!-- Live Ticker -->
+    <div class="live-ticker">
+        <div class="live-ticker-label">LIVE CITIES</div>
+        <div class="ticker-track" id="tickerTrack"></div>
+        <div class="ticker-view-all"><a href="cities.html">View all →</a></div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- HOW IT WORKS                               -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section how-it-works" id="how-it-works">
+    <div class="how-bg-image"></div>
+    <div class="container text-center" style="position:relative;z-index:2;">
+        <div class="section-label-pill">✦ HOW IT WORKS</div>
+        <h2 class="section-title-lg">Three Steps to <span class="text-orange">Any Answer</span></h2>
+        <p class="section-subtitle-lg mx-auto">No downloads, no sign-ups. Just pick your city and ask.</p>
+
+        <div class="steps-wrapper">
+            <div class="steps-grid">
+                <!-- Step 1 -->
+                <div class="step-card step-card-orange reveal">
+                    <div class="step-number step-num-orange">1</div>
+                    <div class="step-img-wrapper">
+                        <img src="assets/steps/how_step1_map.png" alt="Pick Your City" class="step-img">
+                    </div>
+                    <h3 class="step-title">Pick Your City</h3>
+                    <div class="step-bar step-bar-orange"></div>
+                    <p class="step-desc">Select your district from the dropdown. We're live in 13 cities and growing.</p>
+                    <div class="card-skyline-svg">
+                        <svg viewBox="0 0 300 50" fill="none" opacity="0.15">
+                            <path d="M0 50 V40 H20 V25 H30 V40 H50 V15 H60 L70 5 L80 15 H90 V40 H110 V20 H125 L135 10 L145 20 H160 V40 H180 V30 H195 V40 H215 V15 H225 L235 5 L245 15 H260 V40 H280 V25 H300 V50 Z" fill="#EA580C"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Connector Arrow 1 -> 2 -->
+                <div class="step-connector step-connector-1">
+                    <svg viewBox="0 0 120 40" fill="none">
+                        <path d="M 10 15 Q 60 40 105 15" stroke="url(#arr-grad-1)" stroke-width="2.5" stroke-dasharray="5 4" stroke-linecap="round"/>
+                        <path d="M 97 8 L 107 16 L 97 22" stroke="#9333EA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <defs>
+                            <linearGradient id="arr-grad-1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#EA580C"/>
+                                <stop offset="100%" stop-color="#9333EA"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-card step-card-purple reveal">
+                    <div class="step-number step-num-purple">2</div>
+                    <div class="step-img-wrapper">
+                        <img src="assets/steps/how_step2_chat.png" alt="Ask Anything" class="step-img">
+                    </div>
+                    <h3 class="step-title">Ask Anything</h3>
+                    <div class="step-bar step-bar-purple"></div>
+                    <p class="step-desc">Type in Hindi or English. Ask about officers, schemes, hospitals, tourism — anything civic.</p>
+                </div>
+
+                <!-- Connector Arrow 2 -> 3 -->
+                <div class="step-connector step-connector-2">
+                    <svg viewBox="0 0 120 40" fill="none">
+                        <path d="M 10 15 Q 60 40 105 15" stroke="url(#arr-grad-2)" stroke-width="2.5" stroke-dasharray="5 4" stroke-linecap="round"/>
+                        <path d="M 97 8 L 107 16 L 97 22" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <defs>
+                            <linearGradient id="arr-grad-2" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#9333EA"/>
+                                <stop offset="100%" stop-color="#22C55E"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-card step-card-green reveal">
+                    <div class="step-number step-num-green">3</div>
+                    <div class="step-img-wrapper">
+                        <img src="assets/steps/how_step3_shield.png" alt="Get Instant Answers" class="step-img">
+                    </div>
+                    <h3 class="step-title">Get Instant Answers</h3>
+                    <div class="step-bar step-bar-green"></div>
+                    <p class="step-desc">AI responds with verified, structured information sourced from official government data.</p>
+                </div>
+            </div>
+
+            <!-- Trust Bar -->
+            <div class="how-trust-bar">
+                <div class="trust-item"><span class="trust-icon-box trust-orange">🛡️</span> Verified Information</div>
+                <div class="trust-divider"></div>
+                <div class="trust-item"><span class="trust-icon-box trust-purple">🔒</span> 100% Secure</div>
+                <div class="trust-divider"></div>
+                <div class="trust-item"><span class="trust-icon-box trust-green">⚡</span> Instant Responses</div>
+                <div class="trust-divider"></div>
+                <div class="trust-item"><span class="trust-icon-box trust-amber">🏅</span> Trusted by Citizens</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ── AdSense Slot ── -->
+<div class="ad-slot"><!-- Google AdSense — Horizontal Banner --></div>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SERVICES SHOWCASE                          -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section services-section" id="services">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-label">🏛️ What You Can Ask</div>
+            <h2 class="section-title">Every Government Service, <span class="text-gradient">One AI.</span></h2>
+            <p class="section-subtitle mx-auto">No more visiting 10 different websites. City Mitra centralizes all official information for your district.</p>
+        </div>
+
+        <div class="services-grid">
+            <!-- Governance -->
+            <div class="service-card reveal" style="--card-accent: #EA580C;" onclick="openChat('Government officers and departments')">
+                <div class="service-icon" style="background: #FFF7ED;">🏛️</div>
+                <h3>Governance & Administration</h3>
+                <p>Find DC, SDM, tehsildar contacts, office timings, department heads, and the complete government directory for your district.</p>
+                <div class="service-tags">
+                    <span class="service-tag" style="--tag-bg:#FFF7ED;--tag-color:#EA580C;">DC Office</span>
+                    <span class="service-tag" style="--tag-bg:#FFF7ED;--tag-color:#EA580C;">SDM</span>
+                    <span class="service-tag" style="--tag-bg:#FFF7ED;--tag-color:#EA580C;">Tehsildar</span>
+                    <span class="service-tag" style="--tag-bg:#FFF7ED;--tag-color:#EA580C;">Departments</span>
+                </div>
+                <span class="service-card-link">Ask about governance →</span>
+            </div>
+
+            <!-- Political Setup -->
+            <div class="service-card reveal" style="--card-accent: #7C3AED;" onclick="openChat('Political representatives and MLAs')">
+                <div class="service-icon" style="background: #F5F3FF;">⚖️</div>
+                <h3>Political Setup</h3>
+                <p>Know your elected representatives — MLAs, MPs, councillors, sarpanches. Get contact details, constituency info, and political structure.</p>
+                <div class="service-tags">
+                    <span class="service-tag" style="--tag-bg:#F5F3FF;--tag-color:#7C3AED;">MLA</span>
+                    <span class="service-tag" style="--tag-bg:#F5F3FF;--tag-color:#7C3AED;">MP</span>
+                    <span class="service-tag" style="--tag-bg:#F5F3FF;--tag-color:#7C3AED;">Councillors</span>
+                    <span class="service-tag" style="--tag-bg:#F5F3FF;--tag-color:#7C3AED;">Panchayat</span>
+                </div>
+                <span class="service-card-link">Ask about politics →</span>
+            </div>
+
+            <!-- Census -->
+            <div class="service-card reveal" style="--card-accent: #0EA5E9;" onclick="openChat('Census data and population statistics')">
+                <div class="service-icon" style="background: #F0F9FF;">📊</div>
+                <h3>Census & Demographics</h3>
+                <p>Population stats, literacy rates, gender ratios, urban vs rural data, growth trends — all sourced from official census records.</p>
+                <div class="service-tags">
+                    <span class="service-tag" style="--tag-bg:#F0F9FF;--tag-color:#0EA5E9;">Population</span>
+                    <span class="service-tag" style="--tag-bg:#F0F9FF;--tag-color:#0EA5E9;">Literacy</span>
+                    <span class="service-tag" style="--tag-bg:#F0F9FF;--tag-color:#0EA5E9;">Demographics</span>
+                </div>
+                <span class="service-card-link">Ask census data →</span>
+            </div>
+
+            <!-- Citizen Services -->
+            <div class="service-card reveal" style="--card-accent: #059669;" onclick="openChat('Government schemes and citizen services')">
+                <div class="service-icon" style="background: #ECFDF5;">📋</div>
+                <h3>Citizen Services & Schemes</h3>
+                <p>Birth certificates, ration cards, pension schemes, Ayushman Bharat, PM Kisan — know eligibility, documents needed, and application process.</p>
+                <div class="service-tags">
+                    <span class="service-tag" style="--tag-bg:#ECFDF5;--tag-color:#059669;">Certificates</span>
+                    <span class="service-tag" style="--tag-bg:#ECFDF5;--tag-color:#059669;">Schemes</span>
+                    <span class="service-tag" style="--tag-bg:#ECFDF5;--tag-color:#059669;">Ration Card</span>
+                    <span class="service-tag" style="--tag-bg:#ECFDF5;--tag-color:#059669;">Pension</span>
+                </div>
+                <span class="service-card-link">Ask about schemes →</span>
+            </div>
+
+            <!-- Public Safety -->
+            <div class="service-card reveal" style="--card-accent: #E11D48;" onclick="openChat('Emergency contacts and hospitals')">
+                <div class="service-icon" style="background: #FFF1F2;">🚨</div>
+                <h3>Public Safety & Health</h3>
+                <p>Emergency helplines, police stations, fire brigade, hospitals, blood banks, ambulance numbers — everything for crisis situations.</p>
+                <div class="service-tags">
+                    <span class="service-tag" style="--tag-bg:#FFF1F2;--tag-color:#E11D48;">Emergency</span>
+                    <span class="service-tag" style="--tag-bg:#FFF1F2;--tag-color:#E11D48;">Hospitals</span>
+                    <span class="service-tag" style="--tag-bg:#FFF1F2;--tag-color:#E11D48;">Police</span>
+                    <span class="service-tag" style="--tag-bg:#FFF1F2;--tag-color:#E11D48;">Ambulance</span>
+                </div>
+                <span class="service-card-link">Ask emergency info →</span>
+            </div>
+
+            <!-- Tourism -->
+            <div class="service-card reveal" style="--card-accent: #D97706;" onclick="openChat('Tourist places and heritage sites')">
+                <div class="service-icon" style="background: #FFFBEB;">🏕️</div>
+                <h3>Tourism & Local Economy</h3>
+                <p>Tourist attractions, heritage sites, hotels, restaurants, local markets, festivals, transport routes — your complete travel companion.</p>
+                <div class="service-tags">
+                    <span class="service-tag" style="--tag-bg:#FFFBEB;--tag-color:#D97706;">Places</span>
+                    <span class="service-tag" style="--tag-bg:#FFFBEB;--tag-color:#D97706;">Hotels</span>
+                    <span class="service-tag" style="--tag-bg:#FFFBEB;--tag-color:#D97706;">Transport</span>
+                    <span class="service-tag" style="--tag-bg:#FFFBEB;--tag-color:#D97706;">Festivals</span>
+                </div>
+                <span class="service-card-link">Explore tourism →</span>
+            </div>
+
+            <!-- AI Assistant (full width) -->
+            <div class="service-card reveal" style="--card-accent: linear-gradient(90deg, #EA580C, #7C3AED);" onclick="openChat('')">
+                <div class="service-icon" style="background: linear-gradient(135deg, #FFF7ED, #F5F3FF);">🤖</div>
+                <h3>AI-Powered Digital Assistant (CityMitra)</h3>
+                <p>Understands Hindi, English, and mixed language. Acts as your personal tourist guide, gives proximity-based notifications when near landmarks, and routes queries to the right department automatically.</p>
+                <div class="service-tags">
+                    <span class="service-tag" style="--tag-bg:#FFF7ED;--tag-color:#EA580C;">Bilingual</span>
+                    <span class="service-tag" style="--tag-bg:#F5F3FF;--tag-color:#7C3AED;">Voice</span>
+                    <span class="service-tag" style="--tag-bg:#ECFDF5;--tag-color:#059669;">Proximity</span>
+                    <span class="service-tag" style="--tag-bg:#FFF1F2;--tag-color:#E11D48;">24/7</span>
+                    <span class="service-tag" style="--tag-bg:#F0F9FF;--tag-color:#0EA5E9;">Smart Routing</span>
+                </div>
+                <span class="service-card-link">Start chatting now →</span>
+            </div>
+        </div>
+
+        <div class="text-center" style="margin-top:48px;">
+            <a href="services.html" class="btn btn-outline">View All Services in Detail →</a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- WHY CITY MITRA (Value Prop)                -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section value-section" id="why">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-label">✨ Why City Mitra</div>
+            <h2 class="section-title">One Platform. <span class="text-gradient">Every Answer.</span></h2>
+            <p class="section-subtitle mx-auto">Unlike scattered government websites, City Mitra centralizes everything into one conversational AI.</p>
+        </div>
+
+        <div class="value-grid">
+            <div class="value-list">
+                <div class="value-item reveal">
+                    <div class="value-item-icon">🎯</div>
+                    <div>
+                        <h4>Centralized Government Data</h4>
+                        <p>No more hopping between 10+ government websites. Every officer, scheme, and service — one search.</p>
+                    </div>
+                </div>
+                <div class="value-item reveal">
+                    <div class="value-item-icon">🗣️</div>
+                    <div>
+                        <h4>Hindi + English + Mixed</h4>
+                        <p>Ask in Hindi, English, or Hinglish. Our AI understands dialect, mixed language, and colloquial phrases.</p>
+                    </div>
+                </div>
+                <div class="value-item reveal">
+                    <div class="value-item-icon">📍</div>
+                    <div>
+                        <h4>Proximity Alerts</h4>
+                        <p>Near a temple, hospital, or government office? Get automatic notifications with details and directions.</p>
+                    </div>
+                </div>
+                <div class="value-item reveal">
+                    <div class="value-item-icon">🔊</div>
+                    <div>
+                        <h4>Voice & Text-to-Speech</h4>
+                        <p>Answers read aloud via TTS. Perfect for users who prefer listening or have accessibility needs.</p>
+                    </div>
+                </div>
+                <div class="value-item reveal">
+                    <div class="value-item-icon">📲</div>
+                    <div>
+                        <h4>Install as App (PWA)</h4>
+                        <p>Add to home screen in one tap. Works offline for cached data. No app store needed.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="value-visual reveal">
+                <img src="images/hero-illustration.png" alt="City Mitra centralizes all government services" class="value-mockup" style="border-radius:20px; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ── AdSense Slot ── -->
+<div class="ad-slot"><!-- Google AdSense — In-Content Banner --></div>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- DISTRICT NETWORK                           -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section cities-section" id="cities">
+    <div class="container text-center">
+        <div class="section-label">✦ District Network</div>
+        <h2 class="section-title">Expanding Across <span class="text-gradient-violet">India.</span></h2>
+        <p class="section-subtitle mx-auto">Each city has its own dedicated AI, trained on official district data. Always accurate, always local.</p>
+        <div style="margin-top:16px;">
+            <span class="pill pill-live">13 Live Districts · More Coming</span>
+        </div>
+
+        <div class="cities-grid" id="citiesGrid"></div>
+
+        <div style="margin-top:40px;">
+            <a href="cities.html" class="btn btn-outline">View All Cities →</a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- FEATURES BENTO GRID                        -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section features-section" id="features">
+    <div class="container text-center">
+        <div class="section-label">⚡ Superpowers</div>
+        <h2 class="section-title">Built for <span class="text-gradient">Real India.</span></h2>
+        <p class="section-subtitle mx-auto">Every feature designed for how Indians actually use technology.</p>
+
+        <div class="bento-grid">
+            <div class="bento-card bento-span-2 reveal" style="background: linear-gradient(135deg, #FFF7ED, #FFFBEB);">
+                <div class="bento-card-icon">🗣️</div>
+                <h3>Hindi + English + Hinglish</h3>
+                <p>Understands dialect, mixed language, and intent. Ask "DC kaun hai?" or "Who is the Deputy Commissioner?" — same answer.</p>
+            </div>
+            <div class="bento-card reveal" style="background: linear-gradient(135deg, #F0F9FF, #ECFDF5);">
+                <div class="bento-card-icon">🗺️</div>
+                <h3>Tourist Guide Mode</h3>
+                <p>Acts as your personal guide. Get directions, history, timings, and nearby facilities for any landmark.</p>
+            </div>
+            <div class="bento-card reveal" style="background: linear-gradient(135deg, #FFF1F2, #FFF7ED);">
+                <div class="bento-card-icon">📍</div>
+                <h3>Proximity Alerts</h3>
+                <p>Near a temple, hospital, or govt office? Get automatic notifications with details.</p>
+            </div>
+            <div class="bento-card reveal" style="background: linear-gradient(135deg, #F5F3FF, #F0F9FF);">
+                <div class="bento-card-icon">⚡</div>
+                <h3>Instant Cache</h3>
+                <p>Frequent questions answered instantly. Fuzzy matching understands natural phrasing. Zero wait.</p>
+            </div>
+            <div class="bento-card reveal" style="background: linear-gradient(135deg, #F5F3FF, #FFF1F2);">
+                <div class="bento-card-icon">💬</div>
+                <h3>WhatsApp Share</h3>
+                <p>One tap to share any bot response with family or friends without losing context.</p>
+            </div>
+            <div class="bento-card bento-span-2 reveal" style="background: linear-gradient(135deg, #FFFBEB, #FFF7ED);">
+                <div class="bento-card-icon">📱</div>
+                <h3>Install as App</h3>
+                <p>Add City Mitra to your home screen in one tap. Looks native — no app store needed. Works offline for cached queries.</p>
+            </div>
+            <div class="bento-card reveal" style="background: linear-gradient(135deg, #ECFDF5, #F0F9FF);">
+                <div class="bento-card-icon">🧠</div>
+                <h3>Smart Query Routing</h3>
+                <p>Tourism, officers, emergencies, demographics — each gets its own intelligence pipeline.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- ASKGITA SECTION                            -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section gita-section" id="askgita">
+    <div class="container">
+        <div class="gita-grid">
+            <div class="reveal">
+                <div class="section-label" style="color: var(--orange-lt);">📖 AskGita</div>
+                <h2 class="section-title" style="color: white;">
+                    Spiritual wisdom.<br>
+                    <span class="text-gradient">Dedicated AI.</span>
+                </h2>
+                <p style="color: rgba(255,255,255,0.6); font-size:1.05rem; line-height:1.7; max-width:480px;">
+                    A separate, specialized AI channel for the Bhagavad Gita, the 48 Kos Parikrama, and the International Gita Mahotsav.
+                </p>
+
+                <div class="gita-quote">
+                    <div class="gita-quote-mark">"</div>
+                    <p>कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।<br>मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥</p>
+                    <cite>— Bhagavad Gita · Chapter 2 · Verse 47</cite>
+                </div>
+            </div>
+
+            <div class="gita-features reveal">
+                <div class="gita-feature" onclick="openChat('Bhagavad Gita Chapter 1 summary')">
+                    <div class="gita-feature-icon">📗</div>
+                    <div>
+                        <h4>All 18 Chapters</h4>
+                        <p>Complete Bhagavad Gita — shloka meanings, teachings, context.</p>
+                    </div>
+                    <span class="gita-feature-badge">700 shlokas</span>
+                </div>
+                <div class="gita-feature" onclick="openChat('48 Kos Parikrama sacred sites')">
+                    <div class="gita-feature-icon">🗺️</div>
+                    <div>
+                        <h4>48 Kos Parikrama</h4>
+                        <p>Sacred sites, significance, location & spiritual importance.</p>
+                    </div>
+                    <span class="gita-feature-badge">48 sites</span>
+                </div>
+                <div class="gita-feature" onclick="openChat('International Gita Mahotsav schedule')">
+                    <div class="gita-feature-icon">🏛️</div>
+                    <div>
+                        <h4>IGM Programme</h4>
+                        <p>International Gita Mahotsav — events, schedule, itinerary.</p>
+                    </div>
+                    <span class="gita-feature-badge">Annual fest</span>
+                </div>
+                <div class="gita-feature" onclick="openChat('Explain karma yoga from Bhagavad Gita')">
+                    <div class="gita-feature-icon">🔀</div>
+                    <div>
+                        <h4>Auto Routing</h4>
+                        <p>Detects Gita queries and routes to the spiritual pipeline.</p>
+                    </div>
+                    <span class="gita-feature-badge">Auto-detect</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- CTA SECTION                                -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section cta-section-v2" id="cta">
+    <div class="cta-bg-image"></div>
+    <div class="cta-overlay"></div>
+    <div class="container" style="position:relative;z-index:2;">
+        <div class="cta-v2-badge">🚀 GET STARTED</div>
+        <h2 class="cta-v2-title">
+            Ready to meet<br>
+            your <span class="text-gradient">city's AI?</span>
+        </h2>
+        <p class="cta-v2-subtitle">
+            No sign-up needed. Pick your city, ask a question,<br>
+            get an answer. It's that simple.
+        </p>
+        <div class="cta-v2-actions">
+            <a href="chat.html" class="btn btn-primary cta-v2-primary">🏛️ Start Chatting Now</a>
+            <a href="about.html" class="btn cta-v2-learn">Learn More <span>→</span></a>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- FOOTER                                     -->
+<!-- ══════════════════════════════════════════ -->
+<footer class="footer-v2" id="footer">
+    <div class="container">
+        <div class="footer-v2-grid">
+            <!-- Brand Column -->
+            <div class="footer-v2-brand">
+                <div class="footer-v2-logo">
+                    <img src="icons/icon-192.png" alt="City Mitra" class="footer-v2-logo-icon">
+                    <div>
+                        <div class="footer-v2-logo-text">City <span>Mitra</span></div>
+                        <div class="footer-v2-logo-sub">Your City's AI Assistant</div>
+                    </div>
+                </div>
+                <p class="footer-v2-desc">India's first AI-powered civic assistant.<br>Centralizing all government information<br>into one intelligent, bilingual platform.</p>
+                <div class="footer-v2-social">
+                    <a href="#" title="Twitter" aria-label="Twitter">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="#" title="LinkedIn" aria-label="LinkedIn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="#" title="YouTube" aria-label="YouTube">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
+                    <a href="#" title="Instagram" aria-label="Instagram">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Product Column -->
+            <div class="footer-v2-col">
+                <h4>PRODUCT</h4>
+                <a href="chat.html">AI Chat</a>
+                <a href="services.html">Services</a>
+                <a href="cities.html">Cities</a>
+                <a href="about.html">About Us</a>
+            </div>
+
+            <!-- Services Column -->
+            <div class="footer-v2-col">
+                <h4>SERVICES</h4>
+                <a href="services.html#governance">Governance</a>
+                <a href="services.html#census">Census Data</a>
+                <a href="services.html#safety">Emergency</a>
+                <a href="services.html#tourism">Tourism</a>
+            </div>
+
+            <!-- Legal Column -->
+            <div class="footer-v2-col">
+                <h4>LEGAL</h4>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="#">Sitemap</a>
+            </div>
+
+            <!-- Newsletter Column -->
+            <div class="footer-v2-newsletter">
+                <h4>Stay Updated</h4>
+                <p>Subscribe to our newsletter for updates,<br>new features and city announcements.</p>
+                <div class="footer-v2-email-form">
+                    <input type="email" placeholder="Enter your email" id="footerEmailInput" aria-label="Email address">
+                    <button type="button" class="footer-v2-send-btn" id="footerSendBtn" aria-label="Subscribe">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="footer-v2-bottom">
+            <div class="footer-v2-trust">
+                <span class="footer-v2-trust-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    100% Secure
+                </span>
+                <span class="footer-v2-trust-dot">•</span>
+                <span class="footer-v2-trust-item">Verified Information</span>
+                <span class="footer-v2-trust-dot">•</span>
+                <span class="footer-v2-trust-item">Trusted by Citizens</span>
+            </div>
+            <div class="footer-v2-copy">
+                © 2025 City Mitra. Built with <span style="color:#E11D48;">❤️</span> for India.
+            </div>
+            <div class="footer-v2-powered">
+                Powered by <a href="#">AI</a> · <a href="#">n8n</a> · <a href="#">Open Data</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SCRIPTS                                    -->
+<!-- ══════════════════════════════════════════ -->
+<script src="js/city-picker.js"></script>
+<script src="js/animations.js"></script>
+
+</body>
+</html>
