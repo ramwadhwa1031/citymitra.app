@@ -6,33 +6,33 @@
     <title>404 Page Not Found — City Mitra</title>
     <meta name="description" content="The civic page you are looking for does not exist or has moved. Explore City Mitra's 13 district AI models.">
     <link rel="canonical" href="https://citymitra.app/404">
-    <link rel="icon" href="icons/icon-192.png" type="image/png">
+    <link rel="icon" href="/icons/icon-192.png" type="image/png">
     
     <!-- GitHub Pages Smart Clean URL Router -->
     <script>
     (function () {
         var path = window.location.pathname.replace(/\/+$/, '').toLowerCase();
         var routes = {
-            '/about': 'about.html',
-            '/services': 'services.html',
-            '/cities': 'cities.html',
-            '/chat': 'chat.html',
-            '/contact': 'contact.html',
-            '/blog': 'blog.html',
-            '/blog-post': 'blog-post.html',
-            '/privacy': 'privacy.html',
-            '/terms': 'terms.html',
-            '/disclaimer': 'disclaimer.html'
+            '/about': '/about',
+            '/services': '/services',
+            '/cities': '/cities',
+            '/chat': '/chat',
+            '/contact': '/contact',
+            '/blog': '/blog',
+            '/blog-post': '/blog-post',
+            '/privacy': '/privacy',
+            '/terms': '/terms',
+            '/disclaimer': '/disclaimer'
         };
         if (routes[path]) {
-            window.location.replace(routes[path] + window.location.search + window.location.hash);
+            window.location.replace(window.location.origin + routes[path] + window.location.search + window.location.hash);
         }
     })();
     </script>
 
-    <link rel="stylesheet" href="css/design-tokens.css">
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="/css/design-tokens.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/sections.css">
     <style>
         .error-hero {
             min-height: 80vh;
@@ -148,22 +148,22 @@
 <nav class="navbar" id="navbar">
     <div class="nav-inner">
         <div style="display:flex;align-items:center;">
-            <a href="index" class="nav-logo">
-                <img src="icons/icon-192.png" alt="City Mitra" class="nav-logo-icon">
+            <a href="/" class="nav-logo">
+                <img src="/icons/icon-192.png" alt="City Mitra" class="nav-logo-icon">
                 <div><div class="nav-logo-text">City <span>Mitra</span></div><div class="nav-logo-sub">Your City's AI</div></div>
             </a>
         </div>
         <div class="nav-links" id="navLinks">
-            <a href="index" class="nav-link">Home</a>
-            <a href="services" class="nav-link">Services</a>
-            <a href="cities" class="nav-link">Cities</a>
-            <a href="blog" class="nav-link">Blog</a>
-            <a href="about" class="nav-link">About</a>
-            <a href="contact" class="nav-link">Contact</a>
+            <a href="/" class="nav-link">Home</a>
+            <a href="/services" class="nav-link">Services</a>
+            <a href="/cities" class="nav-link">Cities</a>
+            <a href="/blog" class="nav-link">Blog</a>
+            <a href="/about" class="nav-link">About</a>
+            <a href="/contact" class="nav-link">Contact</a>
         </div>
         <div class="nav-actions">
-            <a href="chat" class="nav-ai-btn" title="Open AI Chat">✦</a>
-            <a href="chat" class="nav-cta">→ Try AI Chat</a>
+            <a href="/chat" class="nav-ai-btn" title="Open AI Chat">✦</a>
+            <a href="/chat" class="nav-cta">→ Try AI Chat</a>
         </div>
     </div>
 </nav>
@@ -177,9 +177,9 @@
             The civic page or district record you were looking for doesn't exist or has moved to a new clean address.
         </p>
         <div class="error-actions">
-            <a href="index" class="btn-error-primary">🏠 Return to Homepage</a>
-            <a href="chat" class="btn-error-ghost">✦ Ask City Mitra AI</a>
-            <a href="cities" class="btn-error-ghost">🗺️ Explore Cities</a>
+            <a href="/" class="btn-error-primary">🏠 Return to Homepage</a>
+            <a href="/chat" class="btn-error-ghost">✦ Ask City Mitra AI</a>
+            <a href="/cities" class="btn-error-ghost">🗺️ Explore Cities</a>
         </div>
     </div>
 </section>
@@ -189,9 +189,9 @@
     <div class="footer-v2-bottom">
         <div>© 2025 City Mitra. All rights reserved. Open Civic Data Initiative.</div>
         <div class="footer-v2-legal-links">
-            <a href="privacy">Privacy Policy</a>
-            <a href="terms">Terms of Service</a>
-            <a href="disclaimer">Civic Disclaimer</a>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
+            <a href="/disclaimer">Civic Disclaimer</a>
         </div>
     </div>
 </footer>
