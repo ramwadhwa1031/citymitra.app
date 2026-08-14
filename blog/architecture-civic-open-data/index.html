@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Canonical URL Auto-Normalizer -->
+    <script>
+    (function(){
+        var p = window.location.pathname;
+        if (p.endsWith('.html')) {
+            window.location.replace(window.location.origin + p.replace(/\.html$/, '') + window.location.search + window.location.hash);
+        } else if (p.length > 1 && p.endsWith('/')) {
+            window.location.replace(window.location.origin + p.slice(0, -1) + window.location.search + window.location.hash);
+        }
+    })();
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecting City Mitra: Ingesting, Normalizing & Serving Civic Open Data Across 13 Indian Districts — City Mitra Blog</title>
+    <meta name="description" content="A deep dive into the technical architecture powering City Mitra. Learn how we ingest fragmented government tables, handle OCR on multilingual circulars, and deliver sub-100ms civic query responses.">
+    <meta name="keywords" content="Data Engineering, System Architecture, Civic Tech, Open Data, ETL Pipelines, Ram Wadhwa, City Mitra, Civic Data, GovTech India">
+    <link rel="canonical" href="https://citymitra.app/blog/architecture-civic-open-data">
+    <link rel="icon" href="/icons/icon-192.png" type="image/png">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+
+    <!-- Google Search Console & AdSense Verification -->
+    <meta name="google-site-verification" content="google2e3856b787fd8a8f">
+    <meta name="google-adsense-account" content="ca-pub-5496851328899189">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5496851328899189" crossorigin="anonymous"></script>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Architecting City Mitra: Ingesting, Normalizing & Serving Civic Open Data Across 13 Indian Districts">
+    <meta property="og:description" content="A deep dive into the technical architecture powering City Mitra. Learn how we ingest fragmented government tables, handle OCR on multilingual circulars, and deliver sub-100ms civic query responses.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://citymitra.app/blog/architecture-civic-open-data">
+    <meta property="og:image" content="https://citymitra.app/icons/icon-512.png">
+    <meta property="article:published_time" content="2025-05-12T10:00:00+05:30">
+    <meta property="article:author" content="Ram Wadhwa">
+    <meta property="article:section" content="Data Engineering">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Architecting City Mitra: Ingesting, Normalizing & Serving Civic Open Data Across 13 Indian Districts">
+    <meta name="twitter:description" content="A deep dive into the technical architecture powering City Mitra. Learn how we ingest fragmented government tables, handle OCR on multilingual circulars, and deliver sub-100ms civic query responses.">
+    <meta name="twitter:image" content="https://citymitra.app/icons/icon-512.png">
+
+    <!-- JSON-LD TechArticle / BlogPosting Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Architecting City Mitra: Ingesting, Normalizing & Serving Civic Open Data Across 13 Indian Districts",
+      "description": "A deep dive into the technical architecture powering City Mitra. Learn how we ingest fragmented government tables, handle OCR on multilingual circulars, and deliver sub-100ms civic query responses.",
+      "image": "https://citymitra.app/icons/icon-512.png",
+      "datePublished": "2025-05-12T10:00:00+05:30",
+      "dateModified": "2026-08-14T12:00:00+05:30",
+      "author": {
+        "@type": "Person",
+        "name": "Ram Wadhwa",
+        "jobTitle": "Sr Data Engineer & Founder, City Mitra",
+        "url": "https://citymitra.app/about",
+        "sameAs": "https://citymitra.app/about"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "City Mitra",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://citymitra.app/icons/icon-512.png"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://citymitra.app/blog/architecture-civic-open-data"
+      },
+      "keywords": "Data Engineering, System Architecture, Civic Tech, Open Data, ETL Pipelines",
+      "articleSection": "Data Engineering"
+    }
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/design-tokens.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/sections.css">
+    <link rel="stylesheet" href="/css/blog.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+    <div class="nav-inner">
+        <div style="display:flex;align-items:center;">
+            <a href="/" class="nav-logo">
+                <img src="/icons/icon-192.png" alt="City Mitra" class="nav-logo-icon">
+                <div><div class="nav-logo-text">City <span>Mitra</span></div><div class="nav-logo-sub">Your City's AI</div></div>
+            </a>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/services" class="nav-link">Services</a>
+            <a href="/cities" class="nav-link">Cities</a>
+            <a href="/blog" class="nav-link active">Blog</a>
+            <a href="/about" class="nav-link">About</a>
+            <a href="/contact" class="nav-link">Contact</a>
+        </div>
+        <div class="nav-actions">
+            <a href="/chat" class="nav-ai-btn" title="Open AI Chat">✦</a>
+            <a href="/chat" class="nav-cta">→ Try AI Chat</a>
+        </div>
+    </div>
+</nav>
+
+<!-- ARTICLE CONTAINER -->
+<div class="post-layout" style="padding-top: calc(var(--nav-h) + 40px);">
+    <main class="post-main">
+        <a href="/blog" class="back-link">← Back to All Articles</a>
+
+        <header class="post-header">
+            <div class="post-category-tag">Data Engineering</div>
+            <h1 class="post-title">Architecting City Mitra: Ingesting, Normalizing & Serving Civic Open Data Across 13 Indian Districts</h1>
+            <div class="post-meta-bar">
+                <div class="author-pill">
+                    <img src="/icons/icon-192.png" alt="Ram Wadhwa" class="author-avatar-sm">
+                    <div>
+                        <div class="author-name-sm">Ram Wadhwa</div>
+                        <div class="author-role-sm">Sr Data Engineer & Founder, City Mitra</div>
+                    </div>
+                </div>
+                <div class="post-meta-details">
+                    <span>📅 May 12, 2025</span>
+                    <span>⏱️ 7 min read</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- TOP AD SLOT -->
+        <div class="ad-slot ad-slot-top" style="margin:24px 0;">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-5496851328899189"
+                 data-ad-slot="1234567890"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <article class="post-content">
+            
+            <h2>The Data Bottleneck in Indian Public Administration</h2>
+            <p>India is home to over 780 districts, each governed through hundreds of municipal departments, state administration bodies, and union ministries. While the Digital India initiative has made tremendous strides in publishing data online, the fundamental problem remains: <strong>data fragmentation and lack of semantic normalization</strong>.</p>
+            <p>A citizen looking for the contact number of their local Sub-Divisional Magistrate (SDM), agricultural subsidies for tube-wells, or emergency flood relief helplines typically has to navigate 5 to 10 disjointed government portals with varying uptime, obsolete PDFs, and unindexed scanned circulars.</p>
+
+            <h2>Our Three-Tier Civic Data Pipeline</h2>
+            <p>To power City Mitra's instant bilingual answers, we engineered a dedicated 3-tier data ingestion and serving architecture:</p>
+            
+            <div style="background:var(--surface-warm); border:1px solid var(--ink-20); border-radius:12px; padding:20px; margin:24px 0;">
+                <h4 style="margin-bottom:8px; color:var(--orange);">1. Ingestion & Extraction Layer (Batch & CDC)</h4>
+                <p>We aggregate public-domain datasets across district portals (e.g., Kurukshetra, Ambala, Dehradun), state gazettes, and national portals. Scanned PDFs are processed through specialized OCR models tuned for Hindi, Punjabi, and English vernacular typographic scripts.</p>
+            </div>
+
+            <div style="background:var(--surface-warm); border:1px solid var(--ink-20); border-radius:12px; padding:20px; margin:24px 0;">
+                <h4 style="margin-bottom:8px; color:var(--orange);">2. Semantic Normalization & Vector Embeddings</h4>
+                <p>Extracted entities (officer designations, office hours, jurisdiction boundaries, emergency escalation trees) are structured into strongly-typed JSON schemas. We generate localized semantic embeddings to ensure a query like <em>"DC sahab ka phone number"</em> correctly maps to the <em>Deputy Commissioner Secretariat Desk</em>.</p>
+            </div>
+
+            <div style="background:var(--surface-warm); border:1px solid var(--ink-20); border-radius:12px; padding:20px; margin:24px 0;">
+                <h4 style="margin-bottom:8px; color:var(--orange);">3. Sub-100ms Edge Serving & Privacy-Preserving Inference</h4>
+                <p>Citizen queries are routed through edge endpoints with zero persistent server-side PII retention. The response is compiled dynamically from verified civic graph nodes, ensuring accuracy without hallucination.</p>
+            </div>
+
+            <h2>Ensuring 100% Accuracy in Civic Data</h2>
+            <p>Unlike conversational LLMs that may hallucinate telephone numbers or officer names, City Mitra employs <strong>Deterministic Verification Guards</strong>. Before any civic contact or scheme requirement is returned to a user, the response is validated against the verified ground-truth graph.</p>
+
+            <h2>What's Next for City Mitra's Data Mesh?</h2>
+            <p>We are currently working on real-time event integration—including municipal water supply schedules, district road closures, and weather warnings across our live 13 districts. Our mission is to make every district in India as digitally accessible and transparent as a tap on your phone.</p>
+        
+        </article>
+
+        <!-- TAGS -->
+        <div class="post-tags-container" style="margin-top:40px; padding-top:20px; border-top:1px solid var(--ink-10);">
+            <strong style="margin-right:12px; font-size:14px; color:var(--ink-70);">Topics:</strong>
+            <span class="post-tag" style="display:inline-block; padding:4px 12px; background:var(--surface-warm); border-radius:100px; font-size:13px; font-weight:600; color:var(--orange); margin-right:8px; margin-bottom:8px;">#Data Engineering</span><span class="post-tag" style="display:inline-block; padding:4px 12px; background:var(--surface-warm); border-radius:100px; font-size:13px; font-weight:600; color:var(--orange); margin-right:8px; margin-bottom:8px;">#System Architecture</span><span class="post-tag" style="display:inline-block; padding:4px 12px; background:var(--surface-warm); border-radius:100px; font-size:13px; font-weight:600; color:var(--orange); margin-right:8px; margin-bottom:8px;">#Civic Tech</span><span class="post-tag" style="display:inline-block; padding:4px 12px; background:var(--surface-warm); border-radius:100px; font-size:13px; font-weight:600; color:var(--orange); margin-right:8px; margin-bottom:8px;">#Open Data</span><span class="post-tag" style="display:inline-block; padding:4px 12px; background:var(--surface-warm); border-radius:100px; font-size:13px; font-weight:600; color:var(--orange); margin-right:8px; margin-bottom:8px;">#ETL Pipelines</span>
+        </div>
+
+        <!-- AUTHOR BIO BOX (E-E-A-T) -->
+        <div class="author-bio-card">
+            <img src="/icons/icon-192.png" alt="Ram Wadhwa" class="author-bio-avatar">
+            <div>
+                <h3 class="author-bio-name">Ram Wadhwa</h3>
+                <div class="author-bio-role">Sr Data Engineer & Founder, City Mitra</div>
+                <p class="author-bio-text">Ram is a Senior Data Engineer specializing in distributed real-time systems, civic data pipelines, and vernacular AI architecture.</p>
+                <div style="margin-top:12px;">
+                    <a href="/about" style="color:var(--orange); font-weight:600; font-size:14px; text-decoration:none;">Learn about Ram's engineering mission on City Mitra →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM AD SLOT -->
+        <div class="ad-slot ad-slot-bottom" style="margin:32px 0;">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-5496851328899189"
+                 data-ad-slot="0987654321"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </main>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer-v2">
+    <div class="footer-v2-bottom">
+        <div>© 2025 City Mitra. All rights reserved. Open Civic Data Initiative. Founded by Ram Wadhwa.</div>
+        <div class="footer-v2-legal-links">
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
+            <a href="/disclaimer">Civic Disclaimer</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

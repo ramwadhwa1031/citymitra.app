@@ -4,117 +4,106 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-    <!-- Homepage -->
+    <!-- Core Main Pages -->
     <url>
         <loc>https://citymitra.app/</loc>
-        <lastmod>2025-05-15</lastmod>
+        <lastmod>2026-08-14</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
-
-    <!-- Services Directory -->
     <url>
         <loc>https://citymitra.app/services</loc>
-        <lastmod>2025-05-15</lastmod>
+        <lastmod>2026-08-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
-
-    <!-- Live Cities -->
     <url>
         <loc>https://citymitra.app/cities</loc>
-        <lastmod>2025-05-15</lastmod>
+        <lastmod>2026-08-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
-
-    <!-- AI Civic Chat -->
     <url>
         <loc>https://citymitra.app/chat</loc>
-        <lastmod>2025-05-15</lastmod>
+        <lastmod>2026-08-14</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
-
-    <!-- Blog Hub -->
     <url>
         <loc>https://citymitra.app/blog</loc>
-        <lastmod>2025-05-15</lastmod>
+        <lastmod>2026-08-14</lastmod>
         <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/about</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/contact</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Clean Static Blog Articles by Ram Wadhwa -->
+    <url>
+        <loc>https://citymitra.app/blog/architecture-civic-open-data</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/blog/smart-cities-vs-smart-districts</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/blog/vernacular-civic-nlp-india</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/blog/emergency-response-data-analytics</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/blog/geospatial-heritage-kurukshetra-48-kos</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/blog/future-public-records-ai</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.85</priority>
     </url>
 
-    <!-- Blog Posts by Ram Wadhwa -->
-    <url>
-        <loc>https://citymitra.app/blog-post?id=architecture-civic-open-data</loc>
-        <lastmod>2025-05-15</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://citymitra.app/blog-post?id=smart-cities-vs-smart-districts</loc>
-        <lastmod>2025-05-15</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://citymitra.app/blog-post?id=vernacular-civic-nlp-india</loc>
-        <lastmod>2025-05-15</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://citymitra.app/blog-post?id=emergency-response-data-analytics</loc>
-        <lastmod>2025-05-15</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://citymitra.app/blog-post?id=geospatial-heritage-kurukshetra-48-kos</loc>
-        <lastmod>2025-05-15</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://citymitra.app/blog-post?id=future-public-records-ai</loc>
-        <lastmod>2025-05-15</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- About Us -->
-    <url>
-        <loc>https://citymitra.app/about</loc>
-        <lastmod>2025-05-15</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-
-    <!-- Contact Us -->
-    <url>
-        <loc>https://citymitra.app/contact</loc>
-        <lastmod>2025-05-15</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-
-    <!-- Legal Compliance Pages -->
+    <!-- Legal & Compliance Pages -->
     <url>
         <loc>https://citymitra.app/privacy</loc>
-        <lastmod>2025-05-15</lastmod>
+        <lastmod>2026-08-14</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
+        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://citymitra.app/terms</loc>
-        <lastmod>2025-05-15</lastmod>
+        <lastmod>2026-08-14</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
+        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://citymitra.app/disclaimer</loc>
-        <lastmod>2025-05-15</lastmod>
+        <lastmod>2026-08-14</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
+        <priority>0.7</priority>
     </url>
+
 </urlset>
