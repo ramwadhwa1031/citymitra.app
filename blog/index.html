@@ -316,7 +316,7 @@
         if (noResults) noResults.style.display = 'none';
 
         grid.innerHTML = posts.map(post => `
-            <a href="blog-post?id=${post.id}" class="blog-card reveal" onclick="if(!window.location.protocol.startsWith('http')) this.href='blog-post.html?id=${post.id}';">
+            <a href="/blog/${post.id}/" class="blog-card reveal">
                 <div class="blog-card-header">
                     <span class="blog-card-category">${post.category}</span>
                     <span class="blog-card-time">${post.readTime}</span>
