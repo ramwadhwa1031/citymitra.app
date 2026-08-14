@@ -3,16 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact — City Mitra | Get in Touch</title>
-    <meta name="description" content="Contact the City Mitra team for support, city addition requests, partnerships, or feedback.">
+    <title>Contact Us — City Mitra | Support & City Requests</title>
+    <meta name="description" content="Contact the City Mitra team for citizen support, district addition requests, partnerships, or civic data feedback. We reply within 24 hours.">
+    <link rel="canonical" href="https://citymitra.app/contact">
     <link rel="icon" href="icons/icon-192.png" type="image/png">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+    <!-- Google AdSense Account & Verification -->
+    <meta name="google-adsense-account" content="ca-pub-5496851328899189">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5496851328899189" crossorigin="anonymous"></script>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Contact Us — City Mitra">
+    <meta property="og:description" content="Get in touch with the City Mitra team for city requests, support, or partnership inquiries.">
+    <meta property="og:url" content="https://citymitra.app/contact">
+    <meta property="og:image" content="https://citymitra.app/icons/icon-512.png">
+
+    <!-- Schema.org FAQPage Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is City Mitra free to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! City Mitra is completely free for all citizens across India with no sign-up or hidden fees."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How accurate is the information?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "All data is curated from official government portals, district websites, and verified public records."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use City Mitra in Hindi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, City Mitra supports bilingual interaction in Hindi, English, and Hinglish."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I request my city to be added?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can use the Request City button on any page to submit your district, and we will prioritize it."
+          }
+        }
+      ]
+    }
+    </script>
+
     <link rel="stylesheet" href="css/design-tokens.css">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/sections.css">
     <style>
-        .page-hero{background:linear-gradient(135deg,var(--surface-dark) 0%,#1a0f2e 100%);padding:calc(var(--nav-h)+60px) 0 80px;color:white;text-align:center}
-        .page-hero .section-title{color:white}
-
         .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:48px}
 
         .contact-info{display:flex;flex-direction:column;gap:24px}
@@ -34,7 +86,7 @@
         .form-textarea{resize:vertical;min-height:120px}
         .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 
-        .form-submit{width:100%;padding:14px;background:var(--orange);color:white;font-size:15px;font-weight:600;border-radius:var(--radius-md);cursor:pointer;transition:all .2s;border:none}
+        .form-submit{width:100%;padding:14px;background:var(--orange);color:white;font-size:15px;font-weight:600;border-radius:var(--radius-md);cursor:pointer;transition:all .2s;border:none;display:flex;align-items:center;justify-content:center;gap:8px;}
         .form-submit:hover{background:var(--orange-deep);transform:translateY(-1px)}
 
         .faq-section{background:var(--surface-warm)}
@@ -57,7 +109,7 @@
 <nav class="navbar" id="navbar">
     <div class="nav-inner">
         <div style="display:flex;align-items:center;">
-            <a href="index.html" class="nav-logo">
+            <a href="index" class="nav-logo">
                 <img src="icons/icon-192.png" alt="City Mitra" class="nav-logo-icon">
                 <div><div class="nav-logo-text">City <span>Mitra</span></div><div class="nav-logo-sub">Your City's AI</div></div>
             </a>
@@ -68,15 +120,16 @@
             </button>
         </div>
         <div class="nav-links" id="navLinks">
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="services.html" class="nav-link">Services</a>
-            <a href="cities.html" class="nav-link">Cities</a>
-            <a href="about.html" class="nav-link">About</a>
-            <a href="contact.html" class="nav-link active">Contact</a>
+            <a href="index" class="nav-link">Home</a>
+            <a href="services" class="nav-link">Services</a>
+            <a href="cities" class="nav-link">Cities</a>
+            <a href="blog" class="nav-link">Blog</a>
+            <a href="about" class="nav-link">About</a>
+            <a href="contact" class="nav-link active">Contact</a>
         </div>
         <div class="nav-actions">
-            <a href="chat.html" class="nav-ai-btn" title="Open AI Chat">✦</a>
-            <a href="chat.html" class="nav-cta">→ Try AI Chat</a>
+            <a href="chat" class="nav-ai-btn" title="Open AI Chat">✦</a>
+            <a href="chat" class="nav-cta">→ Try AI Chat</a>
             <button class="nav-hamburger" onclick="toggleMobileNav()">☰</button>
         </div>
     </div>
@@ -88,15 +141,29 @@
 </nav>
 
 <!-- PAGE HERO -->
-<section class="page-hero">
+<section class="page-hero page-hero-contact">
     <div class="container">
-        <div class="section-label" style="color:var(--orange-lt);">📬 Contact</div>
+        <div class="section-label">📬 24/7 Citizen & District Support</div>
         <h1 class="section-title">Get in <span class="text-gradient">Touch.</span></h1>
-        <p class="section-subtitle" style="color:rgba(255,255,255,.6);margin:0 auto;">Have a question, want to request a city, or interested in partnering? We'd love to hear from you.</p>
+        <p class="section-subtitle">Have a question about your city's AI, want to request a new district addition, or collaborate with us? We'd love to hear from you.</p>
+        
+        <div class="hero-feature-chips">
+            <span class="hero-feature-chip">⚡ Instant Message Routing</span>
+            <span class="hero-feature-chip">💬 Direct Team Access</span>
+            <span class="hero-feature-chip">🛡️ 100% Free & Open</span>
+        </div>
     </div>
 </section>
 
-<div class="ad-slot"><!-- Google AdSense --></div>
+<!-- Ad Slot (Zero space when empty/unfilled) -->
+<div class="ad-slot">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5496851328899189"
+         data-ad-slot="auto"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+</div>
 
 <!-- CONTACT SECTION -->
 <section class="section" style="background:var(--surface);">
@@ -131,32 +198,32 @@
                 <div class="contact-card reveal">
                     <div class="contact-card-icon">🐛</div>
                     <div>
-                        <h3>Report a Bug</h3>
+                        <h3>Report a Correction</h3>
                         <p>Found incorrect information or a technical issue?</p>
                         <a href="mailto:bugs@citymitra.app">bugs@citymitra.app</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Contact Form -->
+            <!-- Contact Form (Directly Connected to Google Sheets) -->
             <div class="contact-form reveal">
                 <h3>Send us a message</h3>
-                <p class="subtitle">We typically respond within 24 hours.</p>
+                <p class="subtitle">Stored securely in Google Sheets & answered within 24 hours.</p>
 
                 <form id="contactForm" onsubmit="handleContactSubmit(event)">
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">Name *</label>
-                            <input type="text" class="form-input" required placeholder="Your name">
+                            <input type="text" id="contactName" class="form-input" required placeholder="Your name">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Email *</label>
-                            <input type="email" class="form-input" required placeholder="your@email.com">
+                            <input type="email" id="contactEmail" class="form-input" required placeholder="your@email.com">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Subject</label>
-                        <select class="form-select">
+                        <select id="contactSubject" class="form-select">
                             <option>General Inquiry</option>
                             <option>Request City Addition</option>
                             <option>Report Incorrect Information</option>
@@ -167,9 +234,11 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Message *</label>
-                        <textarea class="form-textarea" required placeholder="Tell us how we can help..."></textarea>
+                        <textarea id="contactMessage" class="form-textarea" required placeholder="Tell us how we can help..."></textarea>
                     </div>
-                    <button type="submit" class="form-submit">Send Message →</button>
+                    <button type="submit" class="form-submit" id="contactSubmitBtn">
+                        <span>Send Message →</span>
+                    </button>
                 </form>
             </div>
         </div>
@@ -197,11 +266,11 @@
             </div>
             <div class="faq-item">
                 <div class="faq-q" onclick="toggleFaq(this)">How can I add my city? <span class="faq-toggle">+</span></div>
-                <div class="faq-a">Click the "Request City Addition" button on any page, or email us at hello@citymitra.app. We prioritize cities based on demand and data availability.</div>
+                <div class="faq-a">Click the "Request a city addition" button on any page, or submit the form above. We prioritize cities based on demand and data availability.</div>
             </div>
             <div class="faq-item">
                 <div class="faq-q" onclick="toggleFaq(this)">Is my chat data stored? <span class="faq-toggle">+</span></div>
-                <div class="faq-a">Chat history is stored locally in your browser (localStorage). We don't store your conversations on our servers. You can clear your chat history anytime.</div>
+                <div class="faq-a">Chat history is stored locally on your device browser (localStorage). We don't store your conversations on remote servers. You can clear your chat history anytime.</div>
             </div>
             <div class="faq-item">
                 <div class="faq-q" onclick="toggleFaq(this)">Can I install City Mitra as an app? <span class="faq-toggle">+</span></div>
@@ -217,26 +286,111 @@
         <h2 class="section-title" style="color:white;">Rather just chat?</h2>
         <p class="section-subtitle mx-auto" style="color:rgba(255,255,255,.6);">Ask our AI assistant directly — it might already have your answer.</p>
         <div class="cta-actions">
-            <a href="chat.html" class="btn btn-primary" style="font-size:17px;padding:16px 36px;">🏛️ Open AI Chat</a>
+            <a href="chat" class="btn btn-primary" style="font-size:17px;padding:16px 36px;">🏛️ Open AI Chat</a>
         </div>
     </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="footer">
+<!-- ══════════════════════════════════════════ -->
+<!-- FOOTER                                     -->
+<!-- ══════════════════════════════════════════ -->
+<footer class="footer-v2" id="footer">
     <div class="container">
-        <div class="footer-grid">
-            <div class="footer-brand"><div class="footer-brand-name">City <span>Mitra</span></div><p>India's first AI civic assistant.</p></div>
-            <div class="footer-col"><h4>Product</h4><a href="chat.html">AI Chat</a><a href="services.html">Services</a><a href="cities.html">Cities</a></div>
-            <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a></div>
-            <div class="footer-col"><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a></div>
+        <div class="footer-v2-grid">
+            <!-- Brand Column -->
+            <div class="footer-v2-brand">
+                <div class="footer-v2-logo">
+                    <img src="icons/icon-192.png" alt="City Mitra" class="footer-v2-logo-icon">
+                    <div>
+                        <div class="footer-v2-logo-text">City <span>Mitra</span></div>
+                        <div class="footer-v2-logo-sub">Your City's AI Assistant</div>
+                    </div>
+                </div>
+                <p class="footer-v2-desc">India's first AI-powered civic assistant.<br>Centralizing all government information<br>into one intelligent, bilingual platform.</p>
+                <div class="footer-v2-social">
+                    <a href="https://twitter.com/citymitra" target="_blank" rel="noopener noreferrer" title="Twitter" aria-label="Twitter">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="https://linkedin.com/company/citymitra" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://youtube.com/@citymitra" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
+                    <a href="https://instagram.com/citymitra.app" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Product Column -->
+            <div class="footer-v2-col">
+                <h4>PRODUCT</h4>
+                <a href="chat">AI Chat</a>
+                <a href="services">Services</a>
+                <a href="cities">Cities</a>
+                <a href="blog">Knowledge Hub</a>
+                <a href="about">About Us</a>
+            </div>
+
+            <!-- Services Column -->
+            <div class="footer-v2-col">
+                <h4>SERVICES</h4>
+                <a href="services#governance">Governance</a>
+                <a href="services#census">Census Data</a>
+                <a href="services#safety">Emergency</a>
+                <a href="services#tourism">Tourism</a>
+            </div>
+
+            <!-- Legal Column -->
+            <div class="footer-v2-col">
+                <h4>LEGAL</h4>
+                <a href="privacy">Privacy Policy</a>
+                <a href="terms">Terms of Service</a>
+                <a href="disclaimer">Disclaimer</a>
+                <a href="contact">Contact Us</a>
+            </div>
+
+            <!-- Newsletter Column -->
+            <div class="footer-v2-newsletter">
+                <h4>Stay Updated</h4>
+                <p>Subscribe to our newsletter for updates,<br>new features and city announcements.</p>
+                <div class="footer-v2-email-form">
+                    <input type="email" placeholder="Enter your email" id="footerEmailInput" aria-label="Email address">
+                    <button type="button" class="footer-v2-send-btn" id="footerSendBtn" aria-label="Subscribe">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="footer-bottom"><span>© 2025 City Mitra.</span><span>Built with ❤️ for India</span></div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="footer-v2-bottom">
+            <div class="footer-v2-trust">
+                <span class="footer-v2-trust-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    100% Secure
+                </span>
+                <span class="footer-v2-trust-dot">•</span>
+                <span class="footer-v2-trust-item">Verified Information</span>
+                <span class="footer-v2-trust-dot">•</span>
+                <span class="footer-v2-trust-item">Author: Ram Wadhwa</span>
+            </div>
+            <div class="footer-v2-copy">
+                © 2025 City Mitra. Built with <span style="color:#E11D48;">❤️</span> for India.
+            </div>
+            <div class="footer-v2-powered">
+                <a href="privacy">Privacy</a> · <a href="terms">Terms</a> · <a href="disclaimer">Disclaimer</a>
+            </div>
+        </div>
     </div>
 </footer>
 
+<script src="js/google-sheets.js"></script>
 <script src="js/city-picker.js"></script>
 <script src="js/animations.js"></script>
+<script src="js/cookie-consent.js"></script>
+
 <script>
     function toggleFaq(el) {
         const item = el.closest('.faq-item');
@@ -244,17 +398,40 @@
         item.classList.toggle('open');
     }
 
-    function handleContactSubmit(e) {
+    async function handleContactSubmit(e) {
         e.preventDefault();
-        const btn = e.target.querySelector('.form-submit');
-        btn.textContent = 'Sending...';
+        const btn = document.getElementById('contactSubmitBtn');
+        btn.innerHTML = '<span>⏳ Sending to Google Sheets...</span>';
         btn.disabled = true;
+
+        const payload = {
+            name: document.getElementById('contactName').value.trim(),
+            email: document.getElementById('contactEmail').value.trim(),
+            subject: document.getElementById('contactSubject').value,
+            message: document.getElementById('contactMessage').value.trim()
+        };
+
+        if (window.CityMitraSheets && window.CityMitraSheets.submitContactForm) {
+            await window.CityMitraSheets.submitContactForm(payload);
+        }
+
+        btn.innerHTML = '<span>✅ Message Received!</span>';
+        btn.style.background = 'var(--emerald)';
+
         setTimeout(() => {
-            btn.textContent = '✅ Message Sent!';
-            btn.style.background = 'var(--emerald)';
-            setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; btn.disabled = false; e.target.reset(); }, 3000);
-        }, 1500);
+            btn.innerHTML = '<span>Send Message →</span>';
+            btn.style.background = '';
+            btn.disabled = false;
+            document.getElementById('contactForm').reset();
+        }, 2500);
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Safe AdSense initialization
+        try {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (e) {}
+    });
 </script>
 </body>
 </html>

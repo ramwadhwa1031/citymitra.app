@@ -54,13 +54,19 @@
         });
     }
 
-    // ── Active Nav Link ──
+    // ── Active Nav Link (Supports Clean URLs & .html) ──
     function setActiveNavLink() {
-        const path = window.location.pathname;
+        const path = window.location.pathname.replace(/\/$/, '') || '/';
+        const cleanPath = path.replace(/\.html$/, '');
+
         document.querySelectorAll('.nav-link').forEach(link => {
             link.classList.remove('active');
-            const href = link.getAttribute('href');
-            if (href && (path.endsWith(href) || (href === 'index.html' && (path === '/' || path.endsWith('/'))))) {
+            const href = (link.getAttribute('href') || '').replace(/\.html$/, '').replace(/^\.\//, '');
+            if (!href) return;
+
+            if (href === 'index' && (cleanPath === '/' || cleanPath.endsWith('/index') || cleanPath === '')) {
+                link.classList.add('active');
+            } else if (cleanPath.endsWith(href)) {
                 link.classList.add('active');
             }
         });

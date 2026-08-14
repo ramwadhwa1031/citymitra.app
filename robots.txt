@@ -1,0 +1,24 @@
+# Robots.txt for City Mitra (https://citymitra.app)
+User-agent: *
+Allow: /
+Disallow: /scratch/
+Disallow: /.git/
+
+# Allow Google AdSense Crawler
+User-agent: Mediapartners-Google
+Allow: /
+
+# Allow Googlebot
+User-agent: Googlebot
+Allow: /
+
+# Allow Bingbot
+User-agent: Bingbot
+Allow: /
+
+# Allow Applebot
+User-agent: Applebot
+Allow: /
+
+# Sitemap Location
+Sitemap: https://citymitra.app/sitemap.xml

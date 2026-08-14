@@ -90,20 +90,113 @@
         document.getElementById('cityDropdown').classList.remove('open');
     };
 
+    // ── Interactive City Request Modal (Google Sheets Sync) ──
+    function ensureCityRequestModal() {
+        if (document.getElementById('cmCityRequestModal')) return;
+
+        const modalHtml = `
+            <div class="cm-modal-overlay" id="cmCityRequestModal" onclick="if(event.target === this) closeCityRequestModal()">
+                <div class="cm-modal-box">
+                    <div class="cm-modal-header">
+                        <div>
+                            <div class="cm-modal-title">🏙️ Request a New City</div>
+                            <div class="cm-modal-desc">Tell us which district or city you want City Mitra to support next.</div>
+                        </div>
+                        <button class="cm-modal-close" onclick="closeCityRequestModal()" title="Close">✕</button>
+                    </div>
+                    <form id="cmCityRequestForm" onsubmit="handleCityRequestSubmit(event)">
+                        <div class="cm-form-group">
+                            <label class="cm-form-label">City / District Name *</label>
+                            <input type="text" id="cmReqCityName" class="cm-form-input" required placeholder="e.g. Rohtak, Gurgaon, Shimla">
+                        </div>
+                        <div class="cm-form-group">
+                            <label class="cm-form-label">State / Union Territory *</label>
+                            <input type="text" id="cmReqState" class="cm-form-input" required placeholder="e.g. Haryana, Punjab, Himachal Pradesh">
+                        </div>
+                        <div class="cm-form-row">
+                            <div class="cm-form-group">
+                                <label class="cm-form-label">Your Name</label>
+                                <input type="text" id="cmReqName" class="cm-form-input" placeholder="Citizen name">
+                            </div>
+                            <div class="cm-form-group">
+                                <label class="cm-form-label">Email / Phone</label>
+                                <input type="text" id="cmReqContact" class="cm-form-input" placeholder="To notify you when live">
+                            </div>
+                        </div>
+                        <div class="cm-form-group">
+                            <label class="cm-form-label">Notes / Why this city?</label>
+                            <textarea id="cmReqNotes" class="cm-form-textarea" rows="2" placeholder="Key landmarks, services, or why you need this..."></textarea>
+                        </div>
+                        <button type="submit" class="cm-btn-submit" id="cmReqSubmitBtn">
+                            <span>🚀 Submit City Request</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+    }
+
     window.showCityRequest = function () {
-        const name = prompt('Enter the city/district name you want added:');
-        if (name && name.trim()) {
-            alert(`Thank you! We've noted your request to add "${name.trim()}". We'll notify you when it's live.`);
-            // In production, POST to n8n webhook for city requests
+        ensureCityRequestModal();
+        const dd = document.getElementById('cityDropdown');
+        if (dd) dd.classList.remove('open');
+        const modal = document.getElementById('cmCityRequestModal');
+        if (modal) {
+            modal.classList.add('active');
+            const input = document.getElementById('cmReqCityName');
+            if (input) setTimeout(() => input.focus(), 150);
         }
     };
 
-    // ── Open Chat with Query ──
-    window.openChat = function (query) {
-        if (query) {
-            window.location.href = `chat.html?q=${encodeURIComponent(query)}`;
+    window.closeCityRequestModal = function () {
+        const modal = document.getElementById('cmCityRequestModal');
+        if (modal) modal.classList.remove('active');
+    };
+
+    window.handleCityRequestSubmit = async function (e) {
+        e.preventDefault();
+        const btn = document.getElementById('cmReqSubmitBtn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<span>⏳ Saving Request...</span>';
+        btn.disabled = true;
+
+        const payload = {
+            cityName: document.getElementById('cmReqCityName').value.trim(),
+            state: document.getElementById('cmReqState').value.trim(),
+            name: document.getElementById('cmReqName').value.trim(),
+            contact: document.getElementById('cmReqContact').value.trim(),
+            notes: document.getElementById('cmReqNotes').value.trim()
+        };
+
+        if (window.CityMitraSheets && window.CityMitraSheets.submitCityRequest) {
+            await window.CityMitraSheets.submitCityRequest(payload);
         } else {
-            window.location.href = 'chat.html';
+            alert(`Thank you! We've noted your request to add "${payload.cityName}".`);
+        }
+
+        btn.innerHTML = '<span>✅ Request Submitted!</span>';
+        setTimeout(() => {
+            closeCityRequestModal();
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            document.getElementById('cmCityRequestForm').reset();
+        }, 1500);
+    };
+
+    // Listen for ESC key to close modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeCityRequestModal();
+    });
+
+    // ── Open Chat with Query (Clean URL compatible) ──
+    window.openChat = function (query) {
+        const isHttp = window.location.protocol.startsWith('http');
+        const target = isHttp ? 'chat' : 'chat.html';
+        if (query) {
+            window.location.href = `${target}?q=${encodeURIComponent(query)}`;
+        } else {
+            window.location.href = target;
         }
     };
 
