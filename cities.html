@@ -279,27 +279,27 @@
 
 <script>
     const CITY_DATA = [
-        { id: 'kkr', name: 'Kurukshetra', state: 'Haryana', emoji: '🕉️', color: '#EA580C', desc: 'Holy land of the Mahabharata. Home to Brahma Sarovar, 48 Kos Parikrama, and International Gita Mahotsav. Dedicated Bhagavad Gita AI.', services: ['Gita AI', 'Heritage', 'Tourism', 'Officers', 'Emergency'] },
-        { id: 'ftb', name: 'Fatehabad', state: 'Haryana', emoji: '🏛️', color: '#E65100', desc: 'Pink City of Haryana. Ancient fort, rich agricultural heritage, and complete civic infrastructure.', services: ['Heritage', 'Agriculture', 'Services', 'Officers'] },
-        { id: 'karnal', name: 'Karnal', state: 'Haryana', emoji: '🌾', color: '#2E7D32', desc: 'Thriving agricultural hub. Home to NDRI and major dairy industries. Complete civic services from officers to schemes.', services: ['NDRI', 'Agriculture', 'Services', 'Officers'] },
-        { id: 'ambala', name: 'Ambala', state: 'Haryana', emoji: '🏛️', color: '#1565C0', desc: 'Gateway of the north. Major cantonment city with rich history. Railway junction connecting north India.', services: ['Cantonment', 'Railways', 'Officers', 'Tourism'] },
-        { id: 'pkl', name: 'Panchkula', state: 'Haryana', emoji: '🏔️', color: '#00695C', desc: 'Shivalik foothills paradise. Home to Morni Hills, Cactus Garden, and modern urban planning.', services: ['Morni Hills', 'Nature', 'Parks', 'Officers'] },
-        { id: 'srs', name: 'Sirsa', state: 'Haryana', emoji: '🌿', color: '#6A1B9A', desc: 'Rich cultural heritage. Known for folk art, religious sites, and agriculture. Western Haryana\'s cultural capital.', services: ['Culture', 'Heritage', 'Agriculture', 'Officers'] },
-        { id: 'palwal', name: 'Palwal', state: 'Haryana', emoji: '🛕', color: '#E65100', desc: 'Ancient roots with Panchavati Temple, Dauji Temple, and Draupadi Ghat. Southern Haryana heritage hub.', services: ['Temples', 'Heritage', 'Officers', 'Emergency'] },
-        { id: 'fbd', name: 'Faridabad', state: 'Haryana', emoji: '🏭', color: '#C62828', desc: 'Haryana\'s largest city and industrial powerhouse. Major NCR hub with extensive civic infrastructure.', services: ['Industrial', 'NCR', 'Officers', 'Transport'] },
-        { id: 'ddn', name: 'Dehradun', state: 'Uttarakhand', emoji: '🏔️', color: '#1B5E20', desc: 'Capital of Uttarakhand. Gateway to Mussoorie, Rishikesh, and the Himalayas. Education and tourism hub.', services: ['Hill Stations', 'Education', 'Tourism', 'Officers'] },
-        { id: 'asr', name: 'Amritsar', state: 'Punjab', emoji: '🛕', color: '#E65100', desc: 'Home to the Golden Temple. Spiritual capital of Sikhism with Wagah Border and rich Punjabi culture.', services: ['Golden Temple', 'Wagah', 'Culture', 'Officers'] },
-        { id: 'vnr', name: 'Varanasi', state: 'Uttar Pradesh', emoji: '🕉️', color: '#BF360C', desc: 'World\'s oldest living city. Sacred ghats, ancient temples, and the spiritual heartland of India.', services: ['Ghats', 'Temples', 'Tourism', 'Officers'] },
-        { id: 'jpr', name: 'Jaipur', state: 'Rajasthan', emoji: '🏰', color: '#AD1457', desc: 'The Pink City. Magnificent forts, palaces, and Rajasthani culture. UNESCO World Heritage Site.', services: ['Forts', 'Palaces', 'Heritage', 'Tourism'] },
-        { id: 'lko', name: 'Lucknow', state: 'Uttar Pradesh', emoji: '🕌', color: '#4527A0', desc: 'City of Nawabs. Mughal architecture, world-famous cuisine, and rich cultural heritage.', services: ['Architecture', 'Cuisine', 'Culture', 'Officers'] },
-        { id: 'chd', name: 'Chandigarh', state: 'Chandigarh', emoji: '🌹', color: '#00838F', desc: 'Le Corbusier\'s planned city. India\'s cleanest city with modern infrastructure and Rock Garden.', services: ['Rock Garden', 'Sukhna Lake', 'Modern', 'Officers'] }
+        { id: 'kkr', slug: 'kurukshetra', name: 'Kurukshetra', state: 'Haryana', emoji: '🕉️', color: '#EA580C', desc: 'Holy land of the Mahabharata. Home to Brahma Sarovar, 48 Kos Parikrama, and International Gita Mahotsav. Dedicated Bhagavad Gita AI.', services: ['Gita AI', 'Heritage', 'Tourism', 'Officers', 'Emergency'] },
+        { id: 'ftb', slug: 'fatehabad', name: 'Fatehabad', state: 'Haryana', emoji: '🏛️', color: '#E65100', desc: 'Pink City of Haryana. Ancient fort, rich agricultural heritage, and complete civic infrastructure.', services: ['Heritage', 'Agriculture', 'Services', 'Officers'] },
+        { id: 'karnal', slug: 'karnal', name: 'Karnal', state: 'Haryana', emoji: '🌾', color: '#2E7D32', desc: 'Thriving agricultural hub. Home to NDRI and major dairy industries. Complete civic services from officers to schemes.', services: ['NDRI', 'Agriculture', 'Services', 'Officers'] },
+        { id: 'ambala', slug: 'ambala', name: 'Ambala', state: 'Haryana', emoji: '🏛️', color: '#1565C0', desc: 'Gateway of the north. Major cantonment city with rich history. Railway junction connecting north India.', services: ['Cantonment', 'Railways', 'Officers', 'Tourism'] },
+        { id: 'pkl', slug: 'panchkula', name: 'Panchkula', state: 'Haryana', emoji: '🏔️', color: '#00695C', desc: 'Shivalik foothills paradise. Home to Morni Hills, Cactus Garden, and modern urban planning.', services: ['Morni Hills', 'Nature', 'Parks', 'Officers'] },
+        { id: 'srs', slug: 'sirsa', name: 'Sirsa', state: 'Haryana', emoji: '🌿', color: '#6A1B9A', desc: 'Rich cultural heritage. Known for folk art, religious sites, and agriculture. Western Haryana\'s cultural capital.', services: ['Culture', 'Heritage', 'Agriculture', 'Officers'] },
+        { id: 'palwal', slug: 'palwal', name: 'Palwal', state: 'Haryana', emoji: '🛕', color: '#E65100', desc: 'Ancient roots with Panchavati Temple, Dauji Temple, and Draupadi Ghat. Southern Haryana heritage hub.', services: ['Temples', 'Heritage', 'Officers', 'Emergency'] },
+        { id: 'fbd', slug: 'faridabad', name: 'Faridabad', state: 'Haryana', emoji: '🏭', color: '#C62828', desc: 'Haryana\'s largest city and industrial powerhouse. Major NCR hub with extensive civic infrastructure.', services: ['Industrial', 'NCR', 'Officers', 'Transport'] },
+        { id: 'ddn', slug: 'dehradun', name: 'Dehradun', state: 'Uttarakhand', emoji: '🏔️', color: '#1B5E20', desc: 'Capital of Uttarakhand. Gateway to Mussoorie, Rishikesh, and the Himalayas. Education and tourism hub.', services: ['Hill Stations', 'Education', 'Tourism', 'Officers'] },
+        { id: 'asr', slug: 'amritsar', name: 'Amritsar', state: 'Punjab', emoji: '🛕', color: '#E65100', desc: 'Home to the Golden Temple. Spiritual capital of Sikhism with Wagah Border and rich Punjabi culture.', services: ['Golden Temple', 'Wagah', 'Culture', 'Officers'] },
+        { id: 'vnr', slug: 'varanasi', name: 'Varanasi', state: 'Uttar Pradesh', emoji: '🕉️', color: '#BF360C', desc: 'World\'s oldest living city. Sacred ghats, ancient temples, and the spiritual heartland of India.', services: ['Ghats', 'Temples', 'Tourism', 'Officers'] },
+        { id: 'jpr', slug: 'jaipur', name: 'Jaipur', state: 'Rajasthan', emoji: '🏰', color: '#AD1457', desc: 'The Pink City. Magnificent forts, palaces, and Rajasthani culture. UNESCO World Heritage Site.', services: ['Forts', 'Palaces', 'Heritage', 'Tourism'] },
+        { id: 'lko', slug: 'lucknow', name: 'Lucknow', state: 'Uttar Pradesh', emoji: '🕌', color: '#4527A0', desc: 'City of Nawabs. Mughal architecture, world-famous cuisine, and rich cultural heritage.', services: ['Architecture', 'Cuisine', 'Culture', 'Officers'] },
+        { id: 'chd', slug: 'chandigarh', name: 'Chandigarh', state: 'Chandigarh', emoji: '🌹', color: '#00838F', desc: 'Le Corbusier\'s planned city. India\'s cleanest city with modern infrastructure and Rock Garden.', services: ['Rock Garden', 'Sukhna Lake', 'Modern', 'Officers'] }
     ];
 
     document.addEventListener('DOMContentLoaded', () => {
         const grid = document.getElementById('allCitiesGrid');
         grid.innerHTML = CITY_DATA.map(c => `
-            <div class="city-detail-card reveal" onclick="pickCity('${c.id}'); openChat('');">
-                <div class="city-card-header" style="background: ${c.color};">
+            <div class="city-detail-card reveal">
+                <div class="city-card-header" style="background: ${c.color}; cursor:pointer;" onclick="location.href='/cities/${c.slug}/'">
                     <h3>${c.name}</h3>
                     <div class="state">${c.state}</div>
                     <div class="live-dot">LIVE</div>
@@ -310,7 +310,10 @@
                     <div class="city-card-services">
                         ${c.services.map(s => `<span>${s}</span>`).join('')}
                     </div>
-                    <span class="city-card-cta">Chat with ${c.name} AI →</span>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px;">
+                        <a href="/cities/${c.slug}/" class="city-card-cta" style="font-weight:700; text-decoration:none;">Explore ${c.name} →</a>
+                        <button class="btn btn-sm btn-ghost" onclick="pickCity('${c.id}'); openChat('');" style="font-size:12.5px; padding:6px 14px; border-radius:var(--radius-full);">💬 Chat AI</button>
+                    </div>
                 </div>
             </div>
         `).join('');

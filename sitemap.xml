@@ -4,7 +4,7 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-    <!-- Core Main Pages -->
+    <!-- ══ Core Platform Pages ══ -->
     <url>
         <loc>https://citymitra.app/</loc>
         <lastmod>2026-08-14</lastmod>
@@ -48,45 +48,131 @@
         <priority>0.8</priority>
     </url>
 
-    <!-- Clean Static Blog Articles by Ram Wadhwa -->
+    <!-- ══ City-Specific Dedicated District Landing Pages (14 Live Districts) ══ -->
     <url>
-        <loc>https://citymitra.app/blog/architecture-civic-open-data</loc>
+        <loc>https://citymitra.app/cities/kurukshetra/</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.88</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/cities/fatehabad/</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.88</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/cities/karnal/</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.88</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/cities/ambala/</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.88</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/cities/panchkula/</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.88</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/cities/sirsa/</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.88</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/cities/palwal/</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.88</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/cities/faridabad/</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.88</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/cities/dehradun/</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.88</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/cities/amritsar/</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.88</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/cities/varanasi/</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.88</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/cities/jaipur/</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.88</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/cities/lucknow/</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.88</priority>
+    </url>
+    <url>
+        <loc>https://citymitra.app/cities/chandigarh/</loc>
+        <lastmod>2026-08-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.88</priority>
+    </url>
+
+    <!-- ══ Pre-Rendered Static Blog Articles by Ram Wadhwa ══ -->
+    <url>
+        <loc>https://citymitra.app/blog/architecture-civic-open-data/</loc>
         <lastmod>2026-08-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.85</priority>
     </url>
     <url>
-        <loc>https://citymitra.app/blog/smart-cities-vs-smart-districts</loc>
+        <loc>https://citymitra.app/blog/smart-cities-vs-smart-districts/</loc>
         <lastmod>2026-08-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.85</priority>
     </url>
     <url>
-        <loc>https://citymitra.app/blog/vernacular-civic-nlp-india</loc>
+        <loc>https://citymitra.app/blog/vernacular-civic-nlp-india/</loc>
         <lastmod>2026-08-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.85</priority>
     </url>
     <url>
-        <loc>https://citymitra.app/blog/emergency-response-data-analytics</loc>
+        <loc>https://citymitra.app/blog/emergency-response-data-analytics/</loc>
         <lastmod>2026-08-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.85</priority>
     </url>
     <url>
-        <loc>https://citymitra.app/blog/geospatial-heritage-kurukshetra-48-kos</loc>
+        <loc>https://citymitra.app/blog/geospatial-heritage-kurukshetra-48-kos/</loc>
         <lastmod>2026-08-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.85</priority>
     </url>
     <url>
-        <loc>https://citymitra.app/blog/future-public-records-ai</loc>
+        <loc>https://citymitra.app/blog/future-public-records-ai/</loc>
         <lastmod>2026-08-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.85</priority>
     </url>
 
-    <!-- Legal & Compliance Pages -->
+    <!-- ══ Legal & Compliance Pages ══ -->
     <url>
         <loc>https://citymitra.app/privacy</loc>
         <lastmod>2026-08-14</lastmod>

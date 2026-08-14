@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Clean URL Extension Normalizer -->
+    <script>
+    (function(){
+        var p = window.location.pathname;
+        if (p.endsWith('.html')) {
+            window.location.replace(window.location.origin + p.replace(/\.html$/, '') + window.location.search + window.location.hash);
+        }
+    })();
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jaipur AI Civic Assistant & Administration Guide | City Mitra</title>
+    <meta name="description" content="Centralized 24x7 civic AI for Jaipur (Rajasthan). Access DC office contacts, government schemes, emergency helplines, hospital numbers, and tourist spots.">
+    <meta name="keywords" content="Jaipur government services, Jaipur DC office, Jaipur emergency helplines, Jaipur tourism, Rajasthan civic AI, Ram Wadhwa, City Mitra">
+    <link rel="canonical" href="https://citymitra.app/cities/jaipur/">
+    <link rel="icon" href="/icons/icon-192.png" type="image/png">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+
+    <!-- Google Search Console & AdSense Verification -->
+    <meta name="google-site-verification" content="google2e3856b787fd8a8f">
+    <meta name="google-adsense-account" content="ca-pub-5496851328899189">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5496851328899189" crossorigin="anonymous"></script>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Jaipur AI Civic Assistant — City Mitra">
+    <meta property="og:description" content="All government officers, emergency helplines, welfare schemes, and tourist guides for Jaipur, Rajasthan.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://citymitra.app/cities/jaipur/">
+    <meta property="og:image" content="https://citymitra.app/icons/icon-512.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Jaipur AI Civic Assistant — City Mitra">
+    <meta name="twitter:description" content="24x7 verified civic intelligence for Jaipur, Rajasthan.">
+    <meta name="twitter:image" content="https://citymitra.app/icons/icon-512.png">
+
+    <!-- JSON-LD AdministrativeArea & Civic Service Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AdministrativeArea",
+      "name": "Jaipur",
+      "alternateName": "जयपुर",
+      "description": "Jaipur is the royal capital of Rajasthan, famous for majestic forts, palaces, and vibrant Rajasthani culture. Access Jaipur collectorate info, heritage entry timings, and civic services.",
+      "containedInPlace": {
+        "@type": "AdministrativeArea",
+        "name": "Rajasthan",
+        "containedInPlace": {
+          "@type": "Country",
+          "name": "India"
+        }
+      },
+      "url": "https://citymitra.app/cities/jaipur/",
+      "mainEntityOfPage": "https://citymitra.app/cities/jaipur/"
+    }
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/design-tokens.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/sections.css">
+    <style>
+        .city-hero {
+            background: linear-gradient(135deg, #090c24 0%, #151244 35%, #2a0e4e 70%, #46143c 100%);
+            padding: calc(var(--nav-h) + 60px) 24px 70px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .city-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(rgba(255, 255, 255, 0.12) 1.2px, transparent 1.2px),
+                radial-gradient(circle at 20% 30%, rgba(234, 88, 12, 0.35) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(124, 58, 237, 0.4) 0%, transparent 55%);
+            background-size: 28px 28px, 100% 100%, 100% 100%;
+            pointer-events: none;
+        }
+        .city-container {
+            max-width: 960px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        .city-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: var(--radius-full);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #FFEDD5;
+            margin-bottom: 16px;
+        }
+        .city-h1 {
+            font-size: clamp(2.2rem, 5vw, 3.4rem);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+        .city-tagline {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            color: #FED7AA;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+        .city-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 28px;
+        }
+        .btn-city-ai {
+            padding: 14px 30px;
+            background: var(--orange);
+            color: white;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            font-size: 15px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 20px rgba(234, 88, 12, 0.4);
+            transition: all 0.25s ease;
+        }
+        .btn-city-ai:hover {
+            background: var(--orange-deep);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(234, 88, 12, 0.5);
+            color: white;
+        }
+        .btn-city-ghost {
+            padding: 14px 26px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: white;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            transition: all 0.25s ease;
+        }
+        .btn-city-ghost:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transform: translateY(-2px);
+        }
+        .city-section {
+            padding: 60px 24px;
+            background: #FFFBF5;
+        }
+        .city-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 32px;
+        }
+        @media (max-width: 768px) {
+            .city-grid-2 { grid-template-columns: 1fr; }
+        }
+        .city-card {
+            background: white;
+            border: 1px solid var(--ink-20);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            box-shadow: var(--shadow-sm);
+        }
+        .city-card h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--ink);
+        }
+        .city-helpline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--ink-05);
+            font-size: 14px;
+        }
+        .city-helpline-item:last-child { border-bottom: none; }
+        .city-spot-pill {
+            display: inline-block;
+            padding: 6px 14px;
+            background: #FAF8F5;
+            border: 1px solid var(--ink-10);
+            border-radius: var(--radius-full);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink-80);
+            margin: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+    <div class="nav-inner">
+        <div style="display:flex;align-items:center;">
+            <a href="/" class="nav-logo">
+                <img src="/icons/icon-192.png" alt="City Mitra" class="nav-logo-icon">
+                <div><div class="nav-logo-text">City <span>Mitra</span></div><div class="nav-logo-sub">Your City's AI</div></div>
+            </a>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/services" class="nav-link">Services</a>
+            <a href="/cities" class="nav-link active">Cities</a>
+            <a href="/blog" class="nav-link">Blog</a>
+            <a href="/about" class="nav-link">About</a>
+            <a href="/contact" class="nav-link">Contact</a>
+        </div>
+        <div class="nav-actions">
+            <a href="/chat" class="nav-ai-btn" title="Open AI Chat">✦</a>
+            <a href="/chat" class="nav-cta">→ Try AI Chat</a>
+        </div>
+    </div>
+</nav>
+
+<!-- CITY HERO -->
+<section class="city-hero">
+    <div class="city-container">
+        <div class="city-badge-pill">🏰 Rajasthan District Portal</div>
+        <h1 class="city-h1">Jaipur Civic AI & Directory</h1>
+        <div class="city-tagline">The Pink City & UNESCO World Heritage Capital</div>
+        <p style="font-size:1.1rem; line-height:1.7; max-width:780px; color:rgba(255,255,255,0.9);">Jaipur is the royal capital of Rajasthan, famous for majestic forts, palaces, and vibrant Rajasthani culture. Access Jaipur collectorate info, heritage entry timings, and civic services.</p>
+        <div class="city-actions">
+            <a href="/chat" class="btn-city-ai" onclick="localStorage.setItem('cm_selected_city', JSON.stringify({id:'jpr', name:'Jaipur', state:'Rajasthan'}))">💬 Launch Jaipur AI Assistant</a>
+            <a href="#helplines" class="btn-city-ghost">📞 District Helplines</a>
+            <a href="/cities" class="btn-city-ghost">🗺️ All 13 Districts</a>
+        </div>
+    </div>
+</section>
+
+<!-- AD SLOT -->
+<div class="ad-slot" style="margin:24px 0;">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5496851328899189"
+         data-ad-slot="auto"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+</div>
+
+<!-- CITY DETAILS SECTION -->
+<main class="city-section" id="helplines">
+    <div class="city-container">
+        <div class="city-grid-2">
+            <!-- District Helplines Card -->
+            <div class="city-card">
+                <h3>🚨 Emergency & Control Rooms</h3>
+                <div>
+                    
+                        <div class="city-helpline-item">
+                            <span style="color:var(--ink-70); font-weight:500;">District Collectorate Jaipur</span>
+                            <a href="tel:0141-2206699" style="color:var(--orange); font-weight:700; text-decoration:none;">0141-2206699</a>
+                        </div>
+                    
+                        <div class="city-helpline-item">
+                            <span style="color:var(--ink-70); font-weight:500;">Police Helpline</span>
+                            <a href="tel:112" style="color:var(--orange); font-weight:700; text-decoration:none;">112 / 0141-2203333</a>
+                        </div>
+                    
+                        <div class="city-helpline-item">
+                            <span style="color:var(--ink-70); font-weight:500;">SMS Hospital Jaipur</span>
+                            <a href="tel:0141-2518222" style="color:var(--orange); font-weight:700; text-decoration:none;">0141-2518222</a>
+                        </div>
+                    
+                </div>
+            </div>
+
+            <!-- Tourist & Cultural Attractions Card -->
+            <div class="city-card">
+                <h3>🏛️ Key Landmarks & Attractions</h3>
+                <div style="margin-top:12px;">
+                    <span class="city-spot-pill">📍 Hawa Mahal</span><span class="city-spot-pill">📍 Amber Fort</span><span class="city-spot-pill">📍 City Palace</span><span class="city-spot-pill">📍 Jantar Mantar</span><span class="city-spot-pill">📍 Nahargarh Fort</span><span class="city-spot-pill">📍 Albert Hall Museum</span>
+                </div>
+                <div style="margin-top:20px; padding-top:16px; border-top:1px solid var(--ink-10);">
+                    <a href="/chat" style="color:var(--orange); font-weight:700; font-size:14px; text-decoration:none;" onclick="localStorage.setItem('cm_selected_city', JSON.stringify({id:'jpr', name:'Jaipur', state:'Rajasthan'}))">Ask Jaipur AI about timings, route & history →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- E-E-A-T SOURCING & ABOUT BIO -->
+        <div class="city-card" style="margin-top:36px; background:#FAF8F5; border-left:4px solid var(--orange);">
+            <h3 style="font-size:1.15rem; color:var(--ink);">🛡️ Official Civic Data Sourcing & Verification</h3>
+            <p style="font-size:14px; color:var(--ink-70); line-height:1.6;">
+                City Mitra is an independent open-civic intelligence initiative engineered by <strong>Ram Wadhwa (Sr Data Engineer)</strong>. 
+                Data for Jaipur is aggregated from public domain government datasets (data.gov.in, jaipur.nic.in, Haryana/state gazettes) 
+                and verified via deterministic validation guards to deliver 100% accurate, non-hallucinated civic answers.
+            </p>
+        </div>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer-v2">
+    <div class="container">
+        <div class="footer-v2-bottom">
+            <div>© 2025 City Mitra. Open Civic Data Initiative for Jaipur, Rajasthan. Founded by Ram Wadhwa.</div>
+            <div class="footer-v2-legal-links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/disclaimer">Civic Disclaimer</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
