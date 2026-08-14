@@ -356,31 +356,39 @@ function renderPostPageHtml(post) {
     </div>
 </nav>
 
-<!-- ARTICLE CONTAINER -->
-<div class="post-layout" style="padding-top: calc(var(--nav-h) + 40px);">
-    <main class="post-main">
-        <a href="/blog" class="back-link">← Back to All Articles</a>
+<!-- ══════════════════════════════════════════ -->
+<!-- ARTICLE CONTAINER                          -->
+<!-- ══════════════════════════════════════════ -->
+<main class="section" style="padding-top: calc(var(--nav-h) + 50px); background: #FFFBF5; min-height: 80vh;">
+    <div class="article-container">
+        <!-- Back link -->
+        <a href="/blog" class="btn btn-ghost" style="margin-bottom: 24px; display:inline-flex; align-items:center; gap:6px; text-decoration:none; font-weight:600; color:var(--ink-70);">
+            ← Back to All Articles
+        </a>
 
-        <header class="post-header">
-            <div class="post-category-tag">${post.category}</div>
-            <h1 class="post-title">${post.title}</h1>
-            <div class="post-meta-bar">
-                <div class="author-pill">
-                    <img src="${post.author.avatar}" alt="${post.author.name}" class="author-avatar-sm">
-                    <div>
-                        <div class="author-name-sm">${post.author.name}</div>
-                        <div class="author-role-sm">${post.author.role}</div>
-                    </div>
-                </div>
-                <div class="post-meta-details">
-                    <span>📅 ${post.date}</span>
-                    <span>⏱️ ${post.readTime}</span>
+        <!-- Header -->
+        <header class="article-header">
+            <div class="article-meta-bar">
+                <span class="blog-card-category">${post.category}</span>
+                <span>${post.date}</span>
+                <span>•</span>
+                <span>${post.readTime}</span>
+            </div>
+            <h1 class="article-title">${post.title}</h1>
+            <p style="font-size: 1.2rem; color: var(--ink-70); line-height: 1.6; margin-bottom: 24px;">${post.summary}</p>
+
+            <!-- Author Card -->
+            <div class="article-author-card">
+                <div class="author-avatar-wrap" style="width: 52px; height: 52px; border-radius: 50%; background: var(--orange); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; flex-shrink: 0;">RW</div>
+                <div>
+                    <div style="font-weight: 800; color: var(--ink); font-size: 16px;">${post.author.name}</div>
+                    <div style="font-size: 13px; color: var(--orange); font-weight: 600;">${post.author.role}</div>
                 </div>
             </div>
         </header>
 
         <!-- TOP AD SLOT -->
-        <div class="ad-slot ad-slot-top" style="margin:24px 0;">
+        <div class="ad-slot ad-slot-top" style="margin:28px 0;">
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-5496851328899189"
@@ -390,26 +398,25 @@ function renderPostPageHtml(post) {
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
 
-        <article class="post-content">
+        <!-- Article Content -->
+        <article class="article-content">
             ${post.content}
         </article>
 
-        <!-- TAGS -->
-        <div class="post-tags-container" style="margin-top:40px; padding-top:20px; border-top:1px solid var(--ink-10);">
+        <!-- Topic Tags -->
+        <div style="margin-top:40px; padding-top:20px; border-top:1px solid var(--ink-10);">
             <strong style="margin-right:12px; font-size:14px; color:var(--ink-70);">Topics:</strong>
-            ${post.tags.map(t => `<span class="post-tag" style="display:inline-block; padding:4px 12px; background:var(--surface-warm); border-radius:100px; font-size:13px; font-weight:600; color:var(--orange); margin-right:8px; margin-bottom:8px;">#${t}</span>`).join('')}
+            ${post.tags.map(t => `<span style="display:inline-block; padding:5px 14px; background:white; border:1px solid var(--ink-20); border-radius:var(--radius-full); font-size:13px; font-weight:600; color:var(--ink-80); margin-right:8px; margin-bottom:8px;">#${t}</span>`).join('')}
         </div>
 
-        <!-- AUTHOR BIO BOX (E-E-A-T) -->
-        <div class="author-bio-card">
-            <img src="${post.author.avatar}" alt="${post.author.name}" class="author-bio-avatar">
+        <!-- Author Spotlight Card (E-E-A-T) -->
+        <div class="article-author-card" style="margin-top:40px; background: white; padding: 24px; border: 1px solid var(--ink-20); border-radius: var(--radius-lg); display:flex; gap:18px; align-items:flex-start;">
+            <div class="author-avatar-wrap" style="width: 60px; height: 60px; border-radius: 50%; background: var(--orange); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 22px; flex-shrink: 0;">RW</div>
             <div>
-                <h3 class="author-bio-name">${post.author.name}</h3>
-                <div class="author-bio-role">${post.author.role}</div>
-                <p class="author-bio-text">${post.author.bio}</p>
-                <div style="margin-top:12px;">
-                    <a href="/about" style="color:var(--orange); font-weight:600; font-size:14px; text-decoration:none;">Learn about Ram's engineering mission on City Mitra →</a>
-                </div>
+                <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--ink); margin-bottom: 4px;">About the Author: ${post.author.name}</h3>
+                <div style="font-size: 13px; color: var(--orange); font-weight: 600; margin-bottom: 8px;">${post.author.role}</div>
+                <p style="font-size: 0.95rem; color: var(--ink-70); line-height: 1.6; margin-bottom: 10px;">${post.author.bio}</p>
+                <a href="/about" style="color:var(--orange); font-weight:700; font-size:13.5px; text-decoration:none;">Learn about Ram's engineering mission on City Mitra →</a>
             </div>
         </div>
 
@@ -423,17 +430,24 @@ function renderPostPageHtml(post) {
                  data-full-width-responsive="true"></ins>
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
-    </main>
-</div>
+
+        <!-- Related Navigation -->
+        <div style="text-align:center; margin-top:48px;">
+            <a href="/blog" class="btn btn-primary" style="display:inline-block; padding:12px 28px; background:var(--orange); color:white; border-radius:var(--radius-full); text-decoration:none; font-weight:700;">Explore More Knowledge Hub Articles →</a>
+        </div>
+    </div>
+</main>
 
 <!-- FOOTER -->
 <footer class="footer-v2">
-    <div class="footer-v2-bottom">
-        <div>© 2025 City Mitra. All rights reserved. Open Civic Data Initiative. Founded by Ram Wadhwa.</div>
-        <div class="footer-v2-legal-links">
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms of Service</a>
-            <a href="/disclaimer">Civic Disclaimer</a>
+    <div class="container">
+        <div class="footer-v2-bottom">
+            <div>© 2025 City Mitra. All rights reserved. Open Civic Data Initiative. Founded by Ram Wadhwa.</div>
+            <div class="footer-v2-legal-links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/disclaimer">Civic Disclaimer</a>
+            </div>
         </div>
     </div>
 </footer>
