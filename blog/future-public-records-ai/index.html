@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Canonical URL Auto-Normalizer -->
+    <!-- Clean URL Extension Normalizer -->
     <script>
     (function(){
         var p = window.location.pathname;
         if (p.endsWith('.html')) {
             window.location.replace(window.location.origin + p.replace(/\.html$/, '') + window.location.search + window.location.hash);
-        } else if (p.length > 1 && p.endsWith('/')) {
-            window.location.replace(window.location.origin + p.slice(0, -1) + window.location.search + window.location.hash);
         }
     })();
     </script>

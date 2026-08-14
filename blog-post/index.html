@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Canonical URL Auto-Normalizer (Prevents duplicate trailing slash and .html) -->
+    <!-- Clean URL Extension Normalizer (Strips .html smoothly without redirect loops) -->
     <script>
     (function(){
         var p = window.location.pathname;
         if (p.endsWith('.html')) {
             window.location.replace(window.location.origin + p.replace(/\.html$/, '') + window.location.search + window.location.hash);
-        } else if (p.length > 1 && p.endsWith('/')) {
-            window.location.replace(window.location.origin + p.slice(0, -1) + window.location.search + window.location.hash);
         }
     })();
     </script>
@@ -257,8 +255,16 @@
 <script src="/js/city-picker.js"></script>
 <script src="/js/animations.js"></script>
 <script src="/js/cookie-consent.js"></script>
-
 <script>
+    (function(){
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('id');
+        if (postId) {
+            window.location.replace('/blog/' + postId + '/');
+            return;
+        }
+    })();
+
     function loadArticle() {
         const urlParams = new URLSearchParams(window.location.search);
         const postId = urlParams.get('id') || 'architecture-civic-open-data';

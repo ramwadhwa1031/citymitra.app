@@ -4,14 +4,12 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const pages = ['about', 'services', 'cities', 'chat', 'contact', 'blog', 'blog-post', 'privacy', 'terms', 'disclaimer'];
 
-const canonicalNormalizer = `    <!-- Canonical URL Auto-Normalizer (Prevents duplicate trailing slash and .html) -->
+const canonicalNormalizer = `    <!-- Clean URL Extension Normalizer (Strips .html smoothly without redirect loops) -->
     <script>
     (function(){
         var p = window.location.pathname;
         if (p.endsWith('.html')) {
             window.location.replace(window.location.origin + p.replace(/\\.html$/, '') + window.location.search + window.location.hash);
-        } else if (p.length > 1 && p.endsWith('/')) {
-            window.location.replace(window.location.origin + p.slice(0, -1) + window.location.search + window.location.hash);
         }
     })();
     </script>
@@ -26,8 +24,8 @@ rootFiles.forEach(fileName => {
 
     let html = fs.readFileSync(filePath, 'utf8');
 
-    // Remove any previously inserted normalizer to avoid duplicate
-    html = html.replace(/\s*<!-- Canonical URL Auto-Normalizer[\s\S]*?<\/script>\s*/g, '\n');
+    // Remove any old canonical normalizers
+    html = html.replace(/\s*<!-- (?:Canonical URL Auto-Normalizer|Clean URL Extension Normalizer)[\s\S]*?<\/script>\s*/g, '\n');
 
     // Insert right after <head>
     html = html.replace(/<head>/i, '<head>\n' + canonicalNormalizer);
@@ -49,4 +47,4 @@ pages.forEach(p => {
     }
 });
 
-console.log('All canonical normalizers successfully applied.');
+console.log('All canonical normalizers successfully applied without loops.');
