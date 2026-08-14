@@ -518,14 +518,21 @@
         // ══ STEP 2: Parse into structured parts ══
         const lines = t.split('\n');
         let title = '';
-        let bodyParagraphs = [];
+        let contentBlocks = []; // Sequence: { type: 'paragraph', text: '...' } or { type: 'bullets', items: [...] }
         let fields = []; // { icon, label, value }
-        let listItems = [];
         let links = [];
+        let allBulletItems = [];
+        let currentBullets = null;
 
         for (let i = 0; i < lines.length; i++) {
             let line = lines[i].trim();
-            if (!line) continue;
+            if (!line) {
+                if (currentBullets && currentBullets.items.length > 0) {
+                    contentBlocks.push(currentBullets);
+                    currentBullets = null;
+                }
+                continue;
+            }
 
             // Skip pure separator lines
             if (/^[-—_=•]{2,}$/.test(line)) continue;
@@ -533,12 +540,12 @@
 
             // ── Title: first **bold** line ──
             if (!title && /^\*\*(.+)\*\*$/.test(line)) {
-                title = line.replace(/\*\*/g, '');
+                title = line.replace(/\*\*/g, '').trim();
                 continue;
             }
             // First non-empty line as fallback title
-            if (!title && i < 2 && line.length < 80 && !line.includes('http')) {
-                title = line.replace(/\*\*/g, '');
+            if (!title && i < 2 && line.length < 80 && !line.includes('http') && !line.startsWith('•') && !line.startsWith('-')) {
+                title = line.replace(/\*\*/g, '').trim();
                 continue;
             }
 
@@ -555,9 +562,11 @@
             const plainDomain = cleanLine.match(/^(?:🔗\s*)?([a-z0-9-]+(?:\.[a-z]{2,}){1,2})\s*$/i);
             if (urlMatch && !/script\.google/.test(urlMatch[1])) {
                 links.push(urlMatch[1]);
-                // If there's text before the URL, keep it as body
                 const before = cleanLine.replace(urlMatch[0], '').trim();
-                if (before && before.length > 3) bodyParagraphs.push(before);
+                if (before && before.length > 3) {
+                    if (currentBullets) { contentBlocks.push(currentBullets); currentBullets = null; }
+                    contentBlocks.push({ type: 'paragraph', text: before });
+                }
                 continue;
             }
             if (plainDomain) {
@@ -573,7 +582,6 @@
             }
 
             // ── Detect phone number on its own line ──
-            // Must be a standalone number like 01744-220270 or 0184-2267500
             const phoneAlone = cleanLine.match(/^(?:📞\s*)?(?:Phone[:\s]*(?:number[:\s]*(?:is)?)?)?(\+?(?:91[-\s]?)?0?\d{2,5}[-\s]?\d{5,8})\.?\s*$/i);
             if (phoneAlone) {
                 fields.push({ icon: '📞', label: 'Phone', value: phoneAlone[1].replace(/\.$/, '') });
@@ -587,55 +595,32 @@
                 const rawValue = kvMatch[3].trim();
                 const emoji = kvMatch[1] || getFieldIcon(rawLabel);
 
-                // Don't match "contacted at" or similar non-field phrases
-                if (/^(he can be|can be|is|was|the|and|but|or|as|at|in)/i.test(rawLabel)) {
-                    bodyParagraphs.push(cleanLine);
+                if (!/^(he can be|can be|is|was|the|and|but|or|as|at|in)/i.test(rawLabel)) {
+                    fields.push({ icon: emoji, label: rawLabel, value: rawValue });
                     continue;
                 }
-                fields.push({ icon: emoji, label: rawLabel, value: rawValue });
-                continue;
-            }
-
-            // ── Detect "He can be contacted at: email" on same line ──
-            const contactedMatch = cleanLine.match(/contacted at:?\s*([a-zA-Z0-9._@-]+(?:\.[a-zA-Z]{2,})+)/i);
-            if (contactedMatch) {
-                fields.push({ icon: '📧', label: 'Email', value: contactedMatch[1] });
-                continue;
-            }
-
-            // ── Detect markdown labeled links: * **Label**: URL ──
-            const mdLinkMatch = cleanLine.match(/^[*•\-]\s*\*?\*?([^*:]+)\*?\*?:\s*(https?:\/\/[^\s]+)/);
-            if (mdLinkMatch) {
-                const label = mdLinkMatch[1].trim();
-                const url = mdLinkMatch[2].trim();
-                try {
-                    const host = new URL(url).hostname.replace('www.', '');
-                    listItems.push(`${label}`);
-                    links.push(url);
-                } catch {
-                    listItems.push(`${label}: ${url}`);
-                }
-                continue;
             }
 
             // ── Detect bullet items (• or - or *) ──
-            if (/^[•\-\*]\s+/.test(cleanLine)) {
-                const items = cleanLine.split(/\s*[•]\s*/).filter(Boolean);
+            if (/^[•\-\*]\s+/.test(cleanLine) || (cleanLine.match(/•/g) || []).length >= 2) {
+                const items = cleanLine.split(/\s*•\s*/).filter(Boolean);
+                if (!currentBullets) {
+                    currentBullets = { type: 'bullets', items: [] };
+                }
                 items.forEach(item => {
                     const clean = item.replace(/^[-*]\s*/, '').replace(/\*\*/g, '').trim();
-                    if (clean.length > 1) listItems.push(clean);
+                    if (clean.length > 1) {
+                        currentBullets.items.push(clean);
+                        allBulletItems.push(clean);
+                    }
                 });
                 continue;
             }
 
-            // ── Lines with many inline bullets (department lists) ──
-            if ((cleanLine.match(/•/g) || []).length >= 2) {
-                const items = cleanLine.split(/\s*•\s*/).filter(Boolean);
-                items.forEach(item => {
-                    const clean = item.trim();
-                    if (clean.length > 1) listItems.push(clean);
-                });
-                continue;
+            // If we were collecting bullets and now hit regular paragraph text
+            if (currentBullets && currentBullets.items.length > 0) {
+                contentBlocks.push(currentBullets);
+                currentBullets = null;
             }
 
             // ── Address-like lines (contains Sector, Secretariat, etc.) ──
@@ -646,7 +631,6 @@
 
             // ── State + pincode lines ──
             if (/^(?:Haryana|Punjab|Rajasthan|Uttar Pradesh|Uttarakhand|Chandigarh)/i.test(cleanLine)) {
-                // Append to last address field if exists
                 const lastAddr = fields.findLast(f => f.icon === '📍');
                 if (lastAddr) { lastAddr.value += ', ' + cleanLine; }
                 else { fields.push({ icon: '📍', label: 'Location', value: cleanLine }); }
@@ -655,9 +639,39 @@
 
             // ── Remaining text → body paragraphs ──
             if (cleanLine.length > 2) {
-                bodyParagraphs.push(cleanLine);
+                contentBlocks.push({ type: 'paragraph', text: cleanLine });
             }
         }
+
+        if (currentBullets && currentBullets.items.length > 0) {
+            contentBlocks.push(currentBullets);
+        }
+
+        // ── Helper: Is this an Entity Directory List vs Feature/Spec List ──
+        function isEntityDirectory(cardTitle, items, fullText) {
+            if (!items || items.length === 0) return false;
+            const t = (cardTitle + ' ' + fullText).toLowerCase();
+            
+            // Explicit list title: "Tourist places in Kurukshetra", "कुरुक्षेत्र में घूमने की मुख्य जगहें", "List of departments", "Emergency Helplines"
+            const isListTitle = /(?:घूमने की|पर्यटन स्थल|मुख्य जगहें|दर्शनीय स्थल|धरोहर स्थल|विभागों की सूची|अस्पतालों|योजनाओं|places to visit|tourist (?:places|attractions|spots)|list of|directory|departments|schemes|universities|colleges|emergency (?:numbers|helplines))/i.test(cardTitle);
+            
+            if (!isListTitle) {
+                // If title is a single specific place/monument/person (e.g. "Mahabharat Anubhav Kendra", "Brahma Sarovar")
+                return false;
+            }
+
+            // If title is a list title, check if items are short standalone entity names
+            let descriptiveCount = 0;
+            for (const item of items) {
+                const words = item.trim().split(/\s+/);
+                if (words.length > 5 || item.length > 38 || /(?:showing|delivering|explaining|equipped|accessible|download|recommended|provides|features|includes|during|located|experience|consists|contains)/i.test(item)) {
+                    descriptiveCount++;
+                }
+            }
+            return (descriptiveCount / items.length) < 0.3;
+        }
+
+        const isDir = isEntityDirectory(title, allBulletItems, t);
 
         // ══ STEP 3: Build beautiful HTML ══
         let html = '<div class="response-card">';
@@ -667,15 +681,29 @@
             html += `<div class="response-card-header"><span class="response-card-icon">${getTitleIcon(title)}</span> ${escHtml(title)}</div>`;
         }
 
-        // Body text
-        if (bodyParagraphs.length > 0) {
-            const body = bodyParagraphs.join(' ')
-                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-                .replace(/He can be contacted at:\s*/gi, '')
-                .trim();
-            if (body && body.length > 2) {
-                html += `<div class="response-card-body">${body}</div>`;
-            }
+        // Body Content (Rendered sequentially in natural order)
+        if (contentBlocks.length > 0) {
+            html += '<div class="response-card-body">';
+            contentBlocks.forEach(block => {
+                if (block.type === 'paragraph') {
+                    const formatted = escHtml(block.text)
+                        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                        .replace(/He can be contacted at:\s*/gi, '');
+                    html += `<p class="response-para">${formatted}</p>`;
+                } else if (block.type === 'bullets') {
+                    if (isDir) {
+                        // Directory items will be rendered as search pills in .response-tags
+                    } else {
+                        // Descriptive feature list for this specific place/topic
+                        html += '<ul class="response-feature-list">';
+                        block.items.forEach(item => {
+                            html += `<li class="response-feature-item"><span class="rfi-icon">✦</span><span class="rfi-text">${escHtml(item.replace(/\*\*/g, ''))}</span></li>`;
+                        });
+                        html += '</ul>';
+                    }
+                }
+            });
+            html += '</div>';
         }
 
         // Fields (icon | label | value)
@@ -698,30 +726,40 @@
             html += '</div>';
         }
 
-        // List items as tags (for department lists)
-        if (listItems.length > 0) {
-            if (listItems.length > 6) {
-                // Many items → pill tags
-                html += '<div class="response-tags">';
-                listItems.forEach(item => {
-                    const clean = item.replace(/\*\*/g, '').trim();
-                    if (clean.length > 1) html += `<span class="response-tag">${escHtml(clean)}</span>`;
-                });
-                html += '</div>';
+        // Clickable Explore Pills & Suggestions
+        if (isDir && allBulletItems.length > 0) {
+            // DIRECTORY LIST: Render places/departments as Search Pills!
+            html += '<div class="response-tags">';
+            allBulletItems.forEach(item => {
+                const clean = item.replace(/\*\*/g, '').trim();
+                if (clean.length > 1) {
+                    const safeAttr = escHtml(clean).replace(/"/g, '&quot;');
+                    html += `<button type="button" class="response-tag clickable-tag" onclick="askAboutTopic(this.getAttribute('data-query'))" data-query="${safeAttr}" title="Click to ask about: ${safeAttr}"><span class="tag-search-icon">🔍</span> ${escHtml(clean)}</button>`;
+                }
+            });
+            html += '</div>';
+        } else if (!isDir && title && title.length > 2 && title.length < 60) {
+            // SPECIFIC DETAIL CARD: Render Smart Contextual Follow-Up Suggestions!
+            const isHi = currentLanguage === 'hi';
+            const cleanTitle = title.replace(/\*\*/g, '').trim();
+            const suggestions = [];
+
+            if (isHi) {
+                suggestions.push({ label: `🗺️ ${cleanTitle} कैसे पहुंचें?`, query: `${cleanTitle} कैसे पहुंचें?` });
+                suggestions.push({ label: `🕘 समय और टिकट`, query: `${cleanTitle} का समय और टिकट` });
+                suggestions.push({ label: `🏛️ ${currentCity.nameHi || currentCity.name} के अन्य पर्यटन स्थल`, query: `${currentCity.nameHi || currentCity.name} में पर्यटन स्थल` });
             } else {
-                // Few items → nice list
-                html += '<div class="response-card-list">';
-                listItems.forEach(item => {
-                    // Detect if item has a number (like "Helpline: 1947")
-                    const helplineMatch = item.match(/^(.+?):\s*(\d{3,5})$/);
-                    if (helplineMatch) {
-                        html += `<div class="response-list-item"><span class="rli-text">${escHtml(helplineMatch[1])}</span><a href="tel:${helplineMatch[2]}" class="rli-number">${helplineMatch[2]}</a></div>`;
-                    } else {
-                        html += `<div class="response-list-item"><span class="rli-bullet">•</span><span class="rli-text">${escHtml(item.replace(/\*\*/g, ''))}</span></div>`;
-                    }
-                });
-                html += '</div>';
+                suggestions.push({ label: `🗺️ How to reach ${cleanTitle}?`, query: `How to reach ${cleanTitle}?` });
+                suggestions.push({ label: `🕘 Timings & Ticket`, query: `Timings and entry fee for ${cleanTitle}` });
+                suggestions.push({ label: `🏛️ Other places in ${currentCity.name}`, query: `Tourist places in ${currentCity.name}` });
             }
+
+            html += '<div class="response-tags response-followups">';
+            suggestions.forEach(s => {
+                const safeQuery = escHtml(s.query).replace(/"/g, '&quot;');
+                html += `<button type="button" class="response-tag response-followup-pill" onclick="askAboutTopic(this.getAttribute('data-query'))" data-query="${safeQuery}" title="Ask: ${safeQuery}">${escHtml(s.label)}</button>`;
+            });
+            html += '</div>';
         }
 
         // Links
@@ -740,7 +778,7 @@
         html += '</div>';
 
         // If card is essentially empty (only title), fall back to general
-        if (!fields.length && !listItems.length && !bodyParagraphs.length && !links.length) {
+        if (!fields.length && !allBulletItems.length && !contentBlocks.length && !links.length) {
             return formatGeneralResponse(rawText);
         }
 
@@ -767,7 +805,7 @@
         if (/dc|commissioner|officer|sdm|dm/.test(t)) return '🏛️';
         if (/emergency|helpline|police|fire|ambulance/.test(t)) return '🚨';
         if (/department|government/.test(t)) return '📋';
-        if (/tourist|tourism|place|visit/.test(t)) return '🏕️';
+        if (/tourist|tourism|place|visit|घूमने|स्थल/.test(t)) return '🏛️';
         if (/scheme|yojana|welfare/.test(t)) return '📝';
         if (/census|population|data/.test(t)) return '📊';
         if (/hospital|health|medical/.test(t)) return '🏥';
@@ -784,8 +822,12 @@
         f = f.replace(/[-—]{4,}/g, '<hr>');
         f = f.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
         f = f.replace(/(^|\s)_(.+?)_(\s|$|<)/g, '$1<em>$2</em>$3');
-        f = f.replace(/^[•\-\*]\s+(.+)$/gm, '<li>$1</li>');
-        f = f.replace(/((?:<li>.*?<\/li>\s*)+)/g, '<ul>$1</ul>');
+        f = f.replace(/^[•\-\*]\s+(.+)$/gm, (match, itemText) => {
+            const clean = itemText.replace(/<\/?[^>]+(>|$)/g, "").trim();
+            const safeAttr = escHtml(clean).replace(/"/g, '&quot;');
+            return `<li class="clickable-bullet" onclick="askAboutTopic(this.getAttribute('data-query') || this.innerText)" data-query="${safeAttr}" title="Click to ask about: ${safeAttr}">${itemText}</li>`;
+        });
+        f = f.replace(/((?:<li.*?<\/li>\s*)+)/g, '<ul class="interactive-bullets">$1</ul>');
         f = f.replace(/(^|[^"'>])(https?:\/\/[^\s<>"']+)/gm, (m, pre, url) => {
             if (/script\.google/.test(url)) return '';
             try { return `${pre}<a href="${url}" target="_blank" class="response-link">🔗 ${new URL(url).hostname.replace('www.','')}</a>`; }
@@ -853,6 +895,27 @@
 
     window.sendMessage = () => { const t = $('chatInput').value.trim(); if (t) sendMessageText(t); };
     window.sendSuggestion = text => sendMessageText(text);
+
+    // Auto-fill query into chat box and immediately search
+    window.askAboutTopic = function (topic) {
+        if (!topic) return;
+        let clean = String(topic)
+            .replace(/^[🔍✨🏛️🛕📍•\-\*]\s*/u, '')
+            .replace(/<[^>]*>/g, '')
+            .trim();
+        if (!clean) return;
+
+        const input = $('chatInput');
+        if (input) {
+            input.value = clean;
+            input.style.height = 'auto';
+            input.focus();
+        }
+
+        // Trigger search directly in chatbot
+        sendMessageText(clean);
+    };
+
     window.handleInputKeydown = e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } };
     window.autoResizeTextarea = el => { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 100) + 'px'; };
 

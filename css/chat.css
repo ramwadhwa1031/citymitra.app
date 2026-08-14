@@ -451,13 +451,57 @@
 .response-card-icon { font-size: 16px; }
 
 .response-card-body {
-    padding: 14px 16px;
-    font-size: 13.5px;
-    color: var(--ink-70);
-    line-height: 1.6;
+    padding: 16px 18px;
+    font-size: 14px;
+    color: var(--ink-80);
+    line-height: 1.65;
     border-bottom: 1px solid var(--ink-10);
 }
-.response-card-body strong { color: var(--ink); }
+.response-card-body strong { color: var(--ink); font-weight: 700; }
+
+.response-para {
+    margin-bottom: 12px;
+    font-size: 13.8px;
+    color: var(--ink-80);
+    line-height: 1.65;
+}
+.response-para:last-child {
+    margin-bottom: 0;
+}
+
+/* ═══ Feature Bullets (clean, readable list for detailed places) ═══ */
+.response-feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.response-feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 12px;
+    background: #FAF8F5;
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--orange);
+    font-size: 13.5px;
+    color: var(--ink);
+    line-height: 1.5;
+}
+
+.response-feature-item .rfi-icon {
+    color: var(--orange);
+    font-size: 11px;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.response-feature-item .rfi-text {
+    flex: 1;
+}
 
 .response-card-fields {
     padding: 8px 16px 12px;
@@ -527,32 +571,75 @@
 }
 .response-link-btn:hover { background: rgba(234, 88, 12, 0.15); }
 
-/* ═══ Response Tags (department lists) ═══ */
+/* ═══ Response Tags (department lists & clickable landmarks) ═══ */
 .response-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    padding: 14px 16px;
+    gap: 8px;
+    padding: 16px;
+    background: #FAF8F5;
+    border-top: 1px solid var(--ink-10);
 }
 
 .response-tag {
-    display: inline-block;
-    padding: 5px 12px;
-    background: var(--ink-05);
-    border: 1px solid var(--ink-10);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 15px;
+    background: white;
+    border: 1.5px solid var(--ink-20);
     border-radius: var(--radius-full);
-    font-size: 12px;
-    color: var(--ink-70);
-    font-weight: 500;
-    transition: all 0.15s;
-}
-.response-tag:hover {
-    background: var(--orange-xlt);
-    border-color: rgba(234, 88, 12, 0.2);
-    color: var(--orange);
+    font-size: 13px;
+    color: var(--ink);
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    user-select: none;
+    outline: none;
 }
 
-/* ═══ Response List (helplines, short lists) ═══ */
+.response-tag:hover {
+    background: #FFF7ED;
+    border-color: var(--orange);
+    color: var(--orange);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2);
+}
+
+.response-tag:active {
+    transform: scale(0.96);
+    background: var(--orange-xlt);
+}
+
+.tag-search-icon {
+    font-size: 11px;
+    opacity: 0.55;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.response-followups {
+    background: #FFFBF5;
+    border-top: 1px dashed rgba(234, 88, 12, 0.25);
+    padding: 12px 16px;
+    gap: 8px;
+}
+
+.response-followup-pill {
+    background: white;
+    border: 1px solid rgba(234, 88, 12, 0.25);
+    color: var(--orange-deep);
+    font-weight: 600;
+}
+
+.response-followup-pill:hover {
+    background: var(--orange);
+    color: white;
+    border-color: var(--orange);
+}
+
+/* ═══ Response List (helplines, short lists, clickable items) ═══ */
 .response-card-list {
     padding: 8px 16px 12px;
 }
@@ -561,11 +648,46 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 0;
+    padding: 10px 12px;
     border-bottom: 1px solid var(--ink-05);
     font-size: 13.5px;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s;
 }
 .response-list-item:last-child { border-bottom: none; }
+
+.response-list-item.clickable {
+    cursor: pointer;
+}
+
+.response-list-item.clickable:hover {
+    background: #FFF7ED;
+    border-color: rgba(234, 88, 12, 0.2);
+    transform: translateX(4px);
+}
+
+.response-list-item.clickable:hover .rli-text {
+    color: var(--orange);
+    font-weight: 600;
+}
+
+.rli-action-hint {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--orange);
+    background: rgba(234, 88, 12, 0.12);
+    padding: 3px 8px;
+    border-radius: var(--radius-full);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.response-list-item.clickable:hover .rli-action-hint {
+    opacity: 1;
+    transform: translateX(0);
+}
 
 .rli-bullet {
     color: var(--orange);
@@ -607,6 +729,23 @@
     list-style: none;
     padding: 0;
     margin: 6px 0;
+}
+
+.clickable-bullet {
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 3px 0;
+    border-radius: 6px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.clickable-bullet:hover {
+    background: #FFF7ED;
+    color: var(--orange);
+    transform: translateX(4px);
+    font-weight: 600;
 }
 .msg-bubble.bot ul li {
     padding: 4px 0 4px 20px;
