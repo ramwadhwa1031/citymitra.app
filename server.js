@@ -25,33 +25,46 @@ const server = http.createServer((req, res) => {
     const parsedUrl = new URL(req.url, `http://localhost:${PORT}`);
     let reqPath = decodeURIComponent(parsedUrl.pathname);
 
-    if (reqPath === '/') {
+    // Normalize root and trailing slash (e.g. /about/ -> /about)
+    if (reqPath === '/' || reqPath === '') {
         reqPath = '/index.html';
+    } else if (reqPath.endsWith('/') && reqPath.length > 1) {
+        reqPath = reqPath.slice(0, -1);
     }
 
     let filePath = path.join(ROOT, reqPath);
 
-    // If file exists as is
+    // 1. If exact file exists
     if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
         serveFile(filePath, res);
         return;
     }
 
-    // Clean URL fallback: check if filePath + '.html' exists
+    // 2. Clean URL fallback: check if filePath + '.html' exists
     const htmlFilePath = filePath + '.html';
     if (fs.existsSync(htmlFilePath) && fs.statSync(htmlFilePath).isFile()) {
         serveFile(htmlFilePath, res);
         return;
     }
 
-    // Check if directory with index.html
+    // 3. Check if directory with index.html
     const indexFilePath = path.join(filePath, 'index.html');
     if (fs.existsSync(indexFilePath) && fs.statSync(indexFilePath).isFile()) {
         serveFile(indexFilePath, res);
         return;
     }
 
-    // 404 Not Found
+    // 4. Custom 404 Page
+    const custom404 = path.join(ROOT, '404.html');
+    if (fs.existsSync(custom404)) {
+        res.writeHead(404, { 'Content-Type': 'text/html; charset=UTF-8' });
+        fs.readFile(custom404, (err, content) => {
+            res.end(content || '<h1>404 Not Found</h1>');
+        });
+        return;
+    }
+
+    // Default 404 Not Found fallback
     res.writeHead(404, { 'Content-Type': 'text/html; charset=UTF-8' });
     res.end('<h1>404 Not Found</h1><p>The requested URL was not found on this server.</p><a href="/">Back to Home</a>');
 });

@@ -7,15 +7,23 @@
     RewriteCond %{HTTPS} off
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+    # Remove trailing slash from non-directories (e.g. /about/ -> /about)
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
     # Remove .html extension from URL if requested directly (301 redirect)
     RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^.]+)\.html\ HTTP/
     RewriteRule ^([^.]+)\.html$ /$1 [R=301,L]
 
     # Internally forward clean URLs to .html files
     RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{DOCUMENT_ROOT}/$1.html -f [OR]
     RewriteCond %{REQUEST_FILENAME}\.html -f
     RewriteRule ^(.*)$ $1.html [L]
 </IfModule>
+
+# Custom 404 Error Page
+ErrorDocument 404 /404.html
 
 # Security Headers & Cache
 <IfModule mod_headers.c>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Page Not Found — City Mitra</title>
+    <meta name="description" content="The civic page you are looking for does not exist or has moved. Explore City Mitra's 13 district AI models.">
+    <link rel="canonical" href="https://citymitra.app/404">
+    <link rel="icon" href="icons/icon-192.png" type="image/png">
+    
+    <!-- GitHub Pages Smart Clean URL Router -->
+    <script>
+    (function () {
+        var path = window.location.pathname.replace(/\/+$/, '').toLowerCase();
+        var routes = {
+            '/about': 'about.html',
+            '/services': 'services.html',
+            '/cities': 'cities.html',
+            '/chat': 'chat.html',
+            '/contact': 'contact.html',
+            '/blog': 'blog.html',
+            '/blog-post': 'blog-post.html',
+            '/privacy': 'privacy.html',
+            '/terms': 'terms.html',
+            '/disclaimer': 'disclaimer.html'
+        };
+        if (routes[path]) {
+            window.location.replace(routes[path] + window.location.search + window.location.hash);
+        }
+    })();
+    </script>
+
+    <link rel="stylesheet" href="css/design-tokens.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <style>
+        .error-hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: calc(var(--nav-h) + 60px) 24px 80px;
+            background: linear-gradient(135deg, #0a0d29 0%, #1c1044 35%, #3e1049 70%, #5e1c36 100%);
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .error-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(rgba(255, 255, 255, 0.12) 1.2px, transparent 1.2px),
+                radial-gradient(circle at 20% 30%, rgba(234, 88, 12, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(124, 58, 237, 0.35) 0%, transparent 50%);
+            background-size: 28px 28px, 100% 100%, 100% 100%;
+            pointer-events: none;
+        }
+
+        .error-content {
+            position: relative;
+            z-index: 2;
+            max-width: 650px;
+        }
+
+        .error-code {
+            font-size: clamp(6rem, 15vw, 10rem);
+            font-weight: 900;
+            font-family: var(--font-display);
+            line-height: 1;
+            background: linear-gradient(135deg, #FFFFFF 20%, #FED7AA 60%, #FB923C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 20px rgba(234, 88, 12, 0.4));
+            margin-bottom: 8px;
+        }
+
+        .error-title {
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            font-weight: 800;
+            margin-bottom: 14px;
+        }
+
+        .error-desc {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .error-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn-error-primary {
+            padding: 14px 28px;
+            background: var(--orange);
+            color: white;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            font-size: 15px;
+            box-shadow: 0 4px 20px rgba(234, 88, 12, 0.4);
+            transition: all 0.25s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-error-primary:hover {
+            background: var(--orange-deep);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(234, 88, 12, 0.5);
+            color: white;
+        }
+
+        .btn-error-ghost {
+            padding: 14px 28px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: white;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.25s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-error-ghost:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+    <div class="nav-inner">
+        <div style="display:flex;align-items:center;">
+            <a href="index" class="nav-logo">
+                <img src="icons/icon-192.png" alt="City Mitra" class="nav-logo-icon">
+                <div><div class="nav-logo-text">City <span>Mitra</span></div><div class="nav-logo-sub">Your City's AI</div></div>
+            </a>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="index" class="nav-link">Home</a>
+            <a href="services" class="nav-link">Services</a>
+            <a href="cities" class="nav-link">Cities</a>
+            <a href="blog" class="nav-link">Blog</a>
+            <a href="about" class="nav-link">About</a>
+            <a href="contact" class="nav-link">Contact</a>
+        </div>
+        <div class="nav-actions">
+            <a href="chat" class="nav-ai-btn" title="Open AI Chat">✦</a>
+            <a href="chat" class="nav-cta">→ Try AI Chat</a>
+        </div>
+    </div>
+</nav>
+
+<!-- 404 HERO -->
+<section class="error-hero">
+    <div class="error-content">
+        <div class="error-code">404</div>
+        <h1 class="error-title">Page Not Found</h1>
+        <p class="error-desc">
+            The civic page or district record you were looking for doesn't exist or has moved to a new clean address.
+        </p>
+        <div class="error-actions">
+            <a href="index" class="btn-error-primary">🏠 Return to Homepage</a>
+            <a href="chat" class="btn-error-ghost">✦ Ask City Mitra AI</a>
+            <a href="cities" class="btn-error-ghost">🗺️ Explore Cities</a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-v2">
+    <div class="footer-v2-bottom">
+        <div>© 2025 City Mitra. All rights reserved. Open Civic Data Initiative.</div>
+        <div class="footer-v2-legal-links">
+            <a href="privacy">Privacy Policy</a>
+            <a href="terms">Terms of Service</a>
+            <a href="disclaimer">Civic Disclaimer</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
