@@ -27,8 +27,8 @@
         { id: 'fbd', name: 'Faridabad', nameHi: 'फरीदाबाद', state: 'Haryana', emoji: '🏭', color: '#C62828', theme: 'industrial', features: { gita: false }, landmarks: [] },
         { id: 'ddn', name: 'Dehradun', nameHi: 'देहरादून', state: 'Uttarakhand', emoji: '🏔️', color: '#1B5E20', theme: 'mountain', features: { gita: false }, landmarks: [] },
         { id: 'asr', name: 'Amritsar', nameHi: 'अमृतसर', state: 'Punjab', emoji: '🛕', color: '#E65100', theme: 'spiritual', features: { gita: false }, landmarks: [] },
-        { id: 'vnr', name: 'Varanasi', nameHi: 'वाराणसी', state: 'Uttar Pradesh', emoji: '🕉️', color: '#BF360C', theme: 'spiritual', features: { gita: false }, landmarks: [] },
-        { id: 'jpr', name: 'Jaipur', nameHi: 'जयपुर', state: 'Rajasthan', emoji: '🏰', color: '#AD1457', theme: 'royal', features: { gita: false }, landmarks: [] },
+        { id: 'vns', name: 'Varanasi', nameHi: 'वाराणसी', state: 'Uttar Pradesh', emoji: '🕉️', color: '#BF360C', theme: 'spiritual', features: { gita: false }, landmarks: [] },
+        { id: 'jaipur', name: 'Jaipur', nameHi: 'जयपुर', state: 'Rajasthan', emoji: '🏰', color: '#AD1457', theme: 'royal', features: { gita: false }, landmarks: [] },
         { id: 'lko', name: 'Lucknow', nameHi: 'लखनऊ', state: 'Uttar Pradesh', emoji: '🕌', color: '#4527A0', theme: 'nawabi', features: { gita: false }, landmarks: [] },
         { id: 'chd', name: 'Chandigarh', nameHi: 'चंडीगढ़', state: 'Chandigarh', emoji: '🌹', color: '#00838F', theme: 'modern', features: { gita: false }, landmarks: [] }
     ];
@@ -38,7 +38,18 @@
     const WEBHOOK_GITA = 'https://n8n-workflow-test.duckdns.org/webhook/InfoBot_AskGita';
 
     // ── State ──
+    // Migrate stale city IDs from localStorage (old vnr→vns, jpr→jaipur)
+    const ID_MIGRATION = { 'vnr': 'vns', 'jpr': 'jaipur' };
     let currentCity = JSON.parse(localStorage.getItem('cm_selected_city')) || CITIES[0];
+    if (currentCity && ID_MIGRATION[currentCity.id]) {
+        currentCity = CITIES.find(c => c.id === ID_MIGRATION[currentCity.id]) || CITIES[0];
+        localStorage.setItem('cm_selected_city', JSON.stringify(currentCity));
+    }
+    // Also validate the stored city still exists in CITIES
+    if (currentCity && !CITIES.find(c => c.id === currentCity.id)) {
+        currentCity = CITIES[0];
+        localStorage.setItem('cm_selected_city', JSON.stringify(currentCity));
+    }
     let currentLanguage = localStorage.getItem('cm_language') || 'en';
     let conversations = JSON.parse(localStorage.getItem('cm_conversations')) || {};
     let activeConversationId = null;

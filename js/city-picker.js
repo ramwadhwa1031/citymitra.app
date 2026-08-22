@@ -16,8 +16,8 @@
         { id: 'fbd', name: 'Faridabad', state: 'Haryana', emoji: '🏭', color: '#C62828', desc: 'Industrial powerhouse — largest city in Haryana, NCR hub.' },
         { id: 'ddn', name: 'Dehradun', state: 'Uttarakhand', emoji: '🏔️', color: '#1B5E20', desc: 'Capital of Uttarakhand — gateway to Mussoorie & hill stations.' },
         { id: 'asr', name: 'Amritsar', state: 'Punjab', emoji: '🛕', color: '#E65100', desc: 'Golden Temple city — spiritual capital & border heritage.' },
-        { id: 'vnr', name: 'Varanasi', state: 'Uttar Pradesh', emoji: '🕉️', color: '#BF360C', desc: 'Oldest living city — ghats, temples & spiritual heartland.' },
-        { id: 'jpr', name: 'Jaipur', state: 'Rajasthan', emoji: '🏰', color: '#AD1457', desc: 'Pink City — forts, palaces, culture & Rajasthani heritage.' },
+        { id: 'vns', name: 'Varanasi', state: 'Uttar Pradesh', emoji: '🕉️', color: '#BF360C', desc: 'Oldest living city — ghats, temples & spiritual heartland.' },
+        { id: 'jaipur', name: 'Jaipur', state: 'Rajasthan', emoji: '🏰', color: '#AD1457', desc: 'Pink City — forts, palaces, culture & Rajasthani heritage.' },
         { id: 'lko', name: 'Lucknow', state: 'Uttar Pradesh', emoji: '🕌', color: '#4527A0', desc: 'City of Nawabs — Mughal architecture, cuisine & governance.' },
         { id: 'chd', name: 'Chandigarh', state: 'Chandigarh', emoji: '🌹', color: '#00838F', desc: 'The Beautiful City — Le Corbusier\'s planned masterpiece.' }
     ];
